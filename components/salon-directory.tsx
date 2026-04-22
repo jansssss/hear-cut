@@ -307,11 +307,11 @@ export default function SalonDirectory({
                       <span className="source-badge">{salon.sourceLabel}</span>
                       <button
                         className="like-button"
-                        title="좋아요 기능은 Supabase 연동 후 지원"
+                        aria-label="좋아요"
+                        title="좋아요"
                         type="button"
                       >
-                        <span>♡</span>
-                        <span>{salon.favoriteCount ?? 0}</span>
+                        <span className="like-icon">♥</span>
                       </button>
                     </div>
                     <div className="actions">
