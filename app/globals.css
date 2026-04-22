@@ -652,6 +652,32 @@ select {
   min-height: 240px;
 }
 
+.map-static-image {
+  display: block;
+  width: 100%;
+  min-height: 240px;
+  object-fit: cover;
+}
+
+.map-loading {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 8px;
+  min-height: 240px;
+  padding: 22px;
+}
+
+.map-loading strong {
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.map-loading span {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
 .map-status {
   display: flex;
   flex-wrap: wrap;
