@@ -47,6 +47,8 @@ type KakaoGlobal = {
 type KakaoMapInstance = {
   setCenter: (position: unknown) => void;
   setLevel: (level: number) => void;
+  setDraggable: (draggable: boolean) => void;
+  setZoomable: (zoomable: boolean) => void;
   relayout: () => void;
 };
 
@@ -213,13 +215,18 @@ export default function KakaoMapPanel({ address, salonName }: KakaoMapPanelProps
         if (!mapRef.current) {
           mapRef.current = new kakao.maps.Map(mapElementRef.current, {
             center: coords,
-            level: 3
+            level: 3,
+            draggable: true,
+            scrollwheel: true,
+            disableDoubleClick: false
           });
         }
 
         const map = mapRef.current;
         map.setCenter(coords);
         map.setLevel(3);
+        map.setDraggable(true);
+        map.setZoomable(true);
 
         markerRef.current?.setMap(null);
         markerRef.current = new kakao.maps.Marker({
@@ -292,7 +299,11 @@ export default function KakaoMapPanel({ address, salonName }: KakaoMapPanelProps
       </div>
 
       <div className="map-status">
-        <span>{mapState.status === "ready" ? mapState.label : "주소 기반 위치 탐색"}</span>
+        <span>
+          {mapState.status === "ready"
+            ? `${mapState.label} · 손가락 확대/축소 가능`
+            : "주소 기반 위치 탐색"}
+        </span>
         <a href={fallbackMapUrl} target="_blank" rel="noreferrer">
           큰 지도 보기
         </a>
