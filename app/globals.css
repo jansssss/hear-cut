@@ -585,6 +585,17 @@ select {
   gap: 12px;
 }
 
+.detail-hero-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.detail-hero-copy {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
 .detail-columns {
   display: grid;
   gap: 18px;
@@ -628,6 +639,65 @@ select {
   color: var(--muted);
 }
 
+.map-shell {
+  display: grid;
+  min-height: 280px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  background: linear-gradient(180deg, #f3f7f7 0%, #edf4f4 100%);
+}
+
+.map-canvas {
+  min-height: 240px;
+}
+
+.map-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.92);
+  border-top: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.map-status span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.map-status a {
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
+.map-fallback {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 16px;
+  padding: 22px;
+}
+
+.map-fallback-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.map-fallback-copy strong {
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.map-fallback-copy p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
 @media (min-width: 920px) {
   .hero-card {
     grid-template-columns: 1.2fr 0.8fr;
@@ -651,6 +721,11 @@ select {
 
   .results-rich {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+    align-items: stretch;
   }
 
   .detail-columns {

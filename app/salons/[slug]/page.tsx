@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import NaverMapPanel from "@/components/naver-map-panel";
 import { salons, tagLabels } from "@/data/salons";
 
 export function generateStaticParams() {
@@ -29,32 +30,38 @@ export default async function SalonDetailPage({
 
         <div className="detail-grid">
           <section className="detail-card detail-head">
-            <span className="eyebrow">{salon.area}</span>
-            <h1>{salon.name}</h1>
-            <p className="caption">{salon.summary}</p>
-            <div className="pill-row">
-              {salon.tags.length > 0 ? (
-                salon.tags.map((tag) => (
-                  <span key={tag} className="pill">
-                    {tagLabels[tag]}
-                  </span>
-                ))
-              ) : (
-                <span className="pill pill-muted">기본 정보 수집 완료</span>
-              )}
-            </div>
-            <div className="actions">
-              <a
-                className="button button-primary"
-                href={salon.reservationUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                예약 링크 열기
-              </a>
-              <a className="button button-secondary" href={salon.source} target="_blank" rel="noreferrer">
-                {salon.sourceLabel} 보기
-              </a>
+            <div className="detail-hero-grid">
+              <div className="detail-hero-copy">
+                <span className="eyebrow">{salon.area}</span>
+                <h1>{salon.name}</h1>
+                <p className="caption">{salon.summary}</p>
+                <div className="pill-row">
+                  {salon.tags.length > 0 ? (
+                    salon.tags.map((tag) => (
+                      <span key={tag} className="pill">
+                        {tagLabels[tag]}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="pill pill-muted">기본 정보 수집 완료</span>
+                  )}
+                </div>
+                <div className="actions">
+                  <a
+                    className="button button-primary"
+                    href={salon.reservationUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    예약 링크 열기
+                  </a>
+                  <a className="button button-secondary" href={salon.source} target="_blank" rel="noreferrer">
+                    {salon.sourceLabel} 보기
+                  </a>
+                </div>
+              </div>
+
+              <NaverMapPanel address={salon.address} salonName={salon.name} />
             </div>
           </section>
 
