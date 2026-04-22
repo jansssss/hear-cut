@@ -1,19 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { salons, type SalonTag } from "@/data/salons";
-
-const labels: Record<SalonTag, string> = {
-  남성커트: "남성 커트",
-  여성커트: "여성 커트",
-  펌: "펌",
-  염색: "염색",
-  클리닉: "클리닉",
-  "1인샵": "1인샵",
-  주차: "주차 가능",
-  네이버예약: "네이버 예약",
-  퇴근후: "퇴근 후 방문",
-  가성비: "가성비"
-};
+import { salons, tagLabels } from "@/data/salons";
 
 export function generateStaticParams() {
   return salons.map((salon) => ({
@@ -24,9 +11,9 @@ export function generateStaticParams() {
 export default async function SalonDetailPage({
   params
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const { slug } = await params;
+  const { slug } = params;
   const salon = salons.find((entry) => entry.slug === slug);
 
   if (!salon) {
@@ -46,11 +33,15 @@ export default async function SalonDetailPage({
             <h1>{salon.name}</h1>
             <p className="caption">{salon.summary}</p>
             <div className="pill-row">
-              {salon.tags.map((tag) => (
-                <span key={tag} className="pill">
-                  {labels[tag]}
-                </span>
-              ))}
+              {salon.tags.length > 0 ? (
+                salon.tags.map((tag) => (
+                  <span key={tag} className="pill">
+                    {tagLabels[tag]}
+                  </span>
+                ))
+              ) : (
+                <span className="pill pill-muted">기본 정보 수집 완료</span>
+              )}
             </div>
             <div className="actions">
               <a
@@ -62,7 +53,7 @@ export default async function SalonDetailPage({
                 예약 링크 열기
               </a>
               <a className="button button-secondary" href={salon.source} target="_blank" rel="noreferrer">
-                출처 보기
+                {salon.sourceLabel} 보기
               </a>
             </div>
           </section>
@@ -80,6 +71,10 @@ export default async function SalonDetailPage({
               <div className="detail-item">
                 <span>전화</span>
                 <strong>{salon.phone}</strong>
+              </div>
+              <div className="detail-item">
+                <span>예약 방식</span>
+                <strong>{salon.reservation}</strong>
               </div>
               <div className="detail-item">
                 <span>주차</span>
@@ -101,18 +96,14 @@ export default async function SalonDetailPage({
                 <strong>{salon.specialties.join(", ")}</strong>
               </div>
               <div className="detail-item">
-                <span>예약 방식</span>
-                <strong>{salon.reservation}</strong>
-              </div>
-              <div className="detail-item">
                 <span>최종 확인일</span>
                 <strong>{salon.lastCheckedAt}</strong>
               </div>
               <div className="detail-item">
                 <span>운영 메모</span>
                 <strong>
-                  이 상세 페이지는 전수조사형 MVP 구조를 보여주기 위한 초안이다.
-                  이후 Supabase 원본 데이터와 연결해 필드를 보강할 수 있다.
+                  공개 소스 기준으로 정리한 비교 데이터다. 실제 방문 전 영업시간,
+                  가격, 예약 가능 여부는 다시 확인하는 전제가 필요하다.
                 </strong>
               </div>
             </aside>
