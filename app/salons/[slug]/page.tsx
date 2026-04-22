@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import NaverMapPanel from "@/components/naver-map-panel";
+import OSMMapPanel from "@/components/osm-map-panel";
 import { salons, tagLabels } from "@/data/salons";
 
 export function generateStaticParams() {
@@ -61,7 +61,7 @@ export default async function SalonDetailPage({
                 </div>
               </div>
 
-              <NaverMapPanel address={salon.address} salonName={salon.name} />
+              <OSMMapPanel address={salon.address} salonName={salon.name} />
             </div>
           </section>
 
