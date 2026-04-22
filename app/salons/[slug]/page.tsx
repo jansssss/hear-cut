@@ -11,9 +11,9 @@ export function generateStaticParams() {
 export default async function SalonDetailPage({
   params
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
   const salon = salons.find((entry) => entry.slug === slug);
 
   if (!salon) {
