@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import OSMMapPanel from "@/components/osm-map-panel";
+import KakaoMapPanel from "@/components/kakao-map-panel";
 import { salons, tagLabels } from "@/data/salons";
 
 export function generateStaticParams() {
@@ -61,7 +61,7 @@ export default async function SalonDetailPage({
                 </div>
               </div>
 
-              <OSMMapPanel address={salon.address} salonName={salon.name} />
+              <KakaoMapPanel address={salon.address} salonName={salon.name} />
             </div>
           </section>
 
