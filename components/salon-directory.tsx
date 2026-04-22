@@ -114,133 +114,108 @@ export default function SalonDirectory({
   return (
     <section className="section directory-section">
       <div className="shell directory-shell">
-        <div className="filter-deck">
-          <div className="filter-hero panel panel-dark">
-            <div className="filter-hero-copy">
-              <span className="eyebrow eyebrow-light">조합형 탐색</span>
-              <h2>조건을 여러 개 켜고 바로 좁혀라.</h2>
-              <p>
-                한 번에 한 조건만 고르는 구조를 버리고, 검색어 + 권역 + 태그를 같이
-                쓸 수 있게 바꿨다. 웹에서도 넓게 보고 빠르게 추려야 한다.
-              </p>
-            </div>
-
-            <div className="hero-spotlight">
-              <div className="spotlight-card">
-                <span>현재 결과</span>
-                <strong>{filteredSalons.length}곳</strong>
-              </div>
-              <div className="spotlight-card">
-                <span>활성 필터</span>
-                <strong>{activeFilterCount}개</strong>
-              </div>
-              <div className="spotlight-card">
-                <span>정렬 방식</span>
-                <strong>{sortKey}</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className="filter-controls panel">
-            <div className="filter-grid">
-              <div className="field field-grow">
-                <label htmlFor="search">검색</label>
-                <input
-                  className="search"
-                  id="search"
-                  type="text"
-                  placeholder="상호명, 도로명, 특징, 태그 검색"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                />
-              </div>
-
-              <div className="field">
-                <label htmlFor="area">권역</label>
-                <select
-                  className="select"
-                  id="area"
-                  value={selectedArea}
-                  onChange={(event) => setSelectedArea(event.target.value)}
-                >
-                  {areas.map((area) => (
-                    <option key={area} value={area}>
-                      {area}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="field">
-                <label htmlFor="sort">정렬</label>
-                <select
-                  className="select"
-                  id="sort"
-                  value={sortKey}
-                  onChange={(event) => setSortKey(event.target.value as SortKey)}
-                >
-                  <option value="추천순">추천순</option>
-                  <option value="이름순">이름순</option>
-                  <option value="예약우선">예약 확인 우선</option>
-                  <option value="주차우선">주차 가능 우선</option>
-                </select>
-              </div>
+        <div className="filter-controls panel">
+          <div className="filter-grid">
+            <div className="field field-grow">
+              <label htmlFor="search">검색</label>
+              <input
+                className="search"
+                id="search"
+                type="text"
+                placeholder="상호명, 도로명, 특징, 태그 검색"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
             </div>
 
             <div className="field">
-              <label>빠른 조건</label>
-              <div className="chip-row chip-grid">
-                {featuredTags.map((tag) => {
-                  const active = selectedTags.includes(tag);
-
-                  return (
-                    <button
-                      className={`chip chip-button ${active ? "chip-active" : ""}`}
-                      key={tag}
-                      onClick={() => toggleTag(tag)}
-                      type="button"
-                    >
-                      {tagLabels[tag]}
-                    </button>
-                  );
-                })}
-              </div>
+              <label htmlFor="area">권역</label>
+              <select
+                className="select"
+                id="area"
+                value={selectedArea}
+                onChange={(event) => setSelectedArea(event.target.value)}
+              >
+                {areas.map((area) => (
+                  <option key={area} value={area}>
+                    {area}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="filter-footer">
-              <div className="active-filters">
-                {selectedArea !== "전체" ? (
-                  <button
-                    className="active-pill"
-                    onClick={() => setSelectedArea("전체")}
-                    type="button"
-                  >
-                    권역: {selectedArea} ×
-                  </button>
-                ) : null}
+            <div className="field">
+              <label htmlFor="sort">정렬</label>
+              <select
+                className="select"
+                id="sort"
+                value={sortKey}
+                onChange={(event) => setSortKey(event.target.value as SortKey)}
+              >
+                <option value="추천순">추천순</option>
+                <option value="이름순">이름순</option>
+                <option value="예약우선">예약 확인 우선</option>
+                <option value="주차우선">주차 가능 우선</option>
+              </select>
+            </div>
+          </div>
 
-                {selectedTags.map((tag) => (
+          <div className="field">
+            <label>빠른 조건</label>
+            <div className="chip-row chip-grid">
+              {featuredTags.map((tag) => {
+                const active = selectedTags.includes(tag);
+
+                return (
                   <button
-                    className="active-pill"
+                    className={`chip chip-button ${active ? "chip-active" : ""}`}
                     key={tag}
                     onClick={() => toggleTag(tag)}
                     type="button"
                   >
-                    {tagLabels[tag]} ×
+                    {tagLabels[tag]}
                   </button>
-                ))}
-
-                {normalizedQuery ? (
-                  <button className="active-pill" onClick={() => setQuery("")} type="button">
-                    검색어: {query} ×
-                  </button>
-                ) : null}
-              </div>
-
-              <button className="button button-secondary" onClick={resetFilters} type="button">
-                필터 초기화
-              </button>
+                );
+              })}
             </div>
+          </div>
+
+          <div className="filter-footer">
+            <div className="active-filters">
+              <span className="source-badge">{filteredSalons.length}곳 표시 중</span>
+              <span className="source-badge">활성 필터 {activeFilterCount}개</span>
+
+              {selectedArea !== "전체" ? (
+                <button
+                  className="active-pill"
+                  onClick={() => setSelectedArea("전체")}
+                  type="button"
+                >
+                  권역: {selectedArea} ×
+                </button>
+              ) : null}
+
+              {selectedTags.map((tag) => (
+                <button
+                  className="active-pill"
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  type="button"
+                >
+                  {tagLabels[tag]} ×
+                </button>
+              ))}
+
+              {normalizedQuery ? (
+                <button className="active-pill" onClick={() => setQuery("")} type="button">
+                  검색어: {query} ×
+                </button>
+              ) : null}
+            </div>
+
+            <button className="button button-secondary" onClick={resetFilters} type="button">
+              필터 초기화
+            </button>
           </div>
         </div>
 
