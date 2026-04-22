@@ -538,5 +538,225 @@ export const salons: Salon[] = [
     source:
       "https://place.udanax.org/p/948956/%EC%9D%B4%EC%B2%A0%ED%97%A4%EC%96%B4%EC%BB%A4%EC%BB%A4%2B%EB%82%98%EC%A3%BC%ED%98%81%EC%8B%A0%EC%A0%90",
     lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "barda-hair",
+    slug: "barda-hair",
+    name: "바르다헤어",
+    area: "그린로권",
+    address: "전남 나주시 그린로 197 (빛가람동)",
+    hours: "매주 월 휴무",
+    phone: "0504-2545-6239",
+    parking: "가능",
+    reservation: "예약 가능",
+    reservationUrl:
+      "https://www.daangn.com/kr/local-profile/%EB%B0%94%EB%A5%B4%EB%8B%A4%ED%97%A4%EC%96%B4-mkj9rxrv6pqw/",
+    summary: "후기 수와 가격 공개 폭이 비교적 큰 컬러·펌 중심 살롱이다.",
+    recommendedFor: "염색·펌 가격대를 먼저 비교하고 싶은 경우",
+    priceSummary: "뿌리염색 20,000원~ · 베이직펌 40,000원~",
+    specialties: ["염색", "펌", "두피·탈모 관리"],
+    tags: ["염색", "펌", "주차", "두피관리", "네이버예약"],
+    sourceLabel: "당근 동네업체",
+    source:
+      "https://www.daangn.com/kr/local-profile/%EB%B0%94%EB%A5%B4%EB%8B%A4%ED%97%A4%EC%96%B4-mkj9rxrv6pqw/",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "soi-salon",
+    slug: "soi-salon",
+    name: "쏘이살롱",
+    area: "상야4길권",
+    address: "전남 나주시 상야4길 22 대양스퀘어가든 3층 315호",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/place.php?id=948931&placeName=%EC%8F%98%EC%9D%B4%EC%82%B4%EB%A1%B1",
+    summary: "상야4길권 비교군에서 빠지기 어려운 살롱으로 직접 페이지가 잡힌다.",
+    recommendedFor: "상야4길권 미용실들을 한 번에 좁혀보는 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["기본 커트", "상야4길권 비교군"],
+    tags: [],
+    sourceLabel: "업체창고",
+    source:
+      "https://place.udanax.org/place.php?id=948931&placeName=%EC%8F%98%EC%9D%B4%EC%82%B4%EB%A1%B1",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "amy-hair-studio-bitgaram",
+    slug: "amy-hair-studio-bitgaram",
+    name: "에이미헤어스튜디오 나주 빛가람점",
+    area: "우정로권",
+    address: "전남 나주시 우정로 106 토담스타타워 B동 206호",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/p/948934/%EC%97%90%EC%9D%B4%EB%AF%B8%ED%97%A4%EC%96%B4%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4%20%EB%82%98%EC%A3%BC%20%EB%B9%9B%EA%B0%80%EB%9E%8C%EC%A0%90",
+    summary: "우정로권에서 직접 이름이 확인되는 살롱으로 주요 상권에 있다.",
+    recommendedFor: "우정로권에서 가까운 샵을 우선 보는 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["기본 커트", "우정로권 비교"],
+    tags: [],
+    sourceLabel: "업체창고",
+    source:
+      "https://place.udanax.org/p/948934/%EC%97%90%EC%9D%B4%EB%AF%B8%ED%97%A4%EC%96%B4%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4%20%EB%82%98%EC%A3%BC%20%EB%B9%9B%EA%B0%80%EB%9E%8C%EC%A0%90",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "iyu-hair",
+    slug: "iyu-hair",
+    name: "이유헤어",
+    area: "우정로권",
+    address: "전남 나주시 우정로 103 이유헤어",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/place.php?id=948937&placeName=%EC%9D%B4%EC%9C%A0%ED%97%A4%EC%96%B4",
+    summary: "우정로권에서 직접 잡히는 기본 수록 살롱이다.",
+    recommendedFor: "우정로권 후보를 넓혀서 비교하고 싶은 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["기본 커트"],
+    tags: [],
+    sourceLabel: "업체창고",
+    source:
+      "https://place.udanax.org/place.php?id=948937&placeName=%EC%9D%B4%EC%9C%A0%ED%97%A4%EC%96%B4",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "hair-bin",
+    slug: "hair-bin",
+    name: "헤어빈",
+    area: "우정로권",
+    address: "전남 나주시 우정로 75 상가동143동123호",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/p/948976/%ED%97%A4%EC%96%B4%EB%B9%88",
+    summary: "우정로권에서 직접 페이지가 확인되는 살롱으로 기본 비교군에 적합하다.",
+    recommendedFor: "우정로권에서 더 많은 후보를 보고 싶은 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["기본 커트"],
+    tags: [],
+    sourceLabel: "업체창고",
+    source:
+      "https://place.udanax.org/p/948976/%ED%97%A4%EC%96%B4%EB%B9%88",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "yumi-hair",
+    slug: "yumi-hair",
+    name: "유미헤어",
+    area: "우정로권",
+    address: "전남 나주시 우정로 72 더클래스빌딩 B동 2층 유미헤어",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/place.php?id=948973&placeName=%EC%9C%A0%EB%AF%B8%ED%97%A4%EC%96%B4",
+    summary: "우정로권 빌딩 내에 있는 살롱으로 공개 페이지가 확인된다.",
+    recommendedFor: "우정로권 건물형 미용실까지 함께 보고 싶은 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["기본 커트"],
+    tags: [],
+    sourceLabel: "업체창고",
+    source:
+      "https://place.udanax.org/place.php?id=948973&placeName=%EC%9C%A0%EB%AF%B8%ED%97%A4%EC%96%B4",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "huiwa-salon",
+    slug: "huiwa-salon",
+    name: "희와살롱",
+    area: "상야4길권",
+    address: "전남 나주시 상야4길 22 211호",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/place.php?id=948931&placeName=%EC%8F%98%EC%9D%B4%EC%82%B4%EB%A1%B1",
+    summary: "인근 미용실 목록에서 반복적으로 확인되는 상야4길권 살롱이다.",
+    recommendedFor: "상야4길권을 놓치지 않고 넓게 비교하는 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["상야4길권 비교군"],
+    tags: [],
+    sourceLabel: "업체창고 주변정보",
+    source:
+      "https://place.udanax.org/place.php?id=948931&placeName=%EC%8F%98%EC%9D%B4%EC%82%B4%EB%A1%B1",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "labelle-hair-salon",
+    slug: "labelle-hair-salon",
+    name: "라벨르헤어살롱",
+    area: "상야3길권",
+    address: "전남 나주시 상야3길 17 휴로스센트럴 203호",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/place.php?id=948931&placeName=%EC%8F%98%EC%9D%B4%EC%82%B4%EB%A1%B1",
+    summary: "상야권 주변 정보에서 반복적으로 잡히는 살롱이다.",
+    recommendedFor: "상야3길·상야4길권을 함께 비교하는 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["상야권 비교군"],
+    tags: [],
+    sourceLabel: "업체창고 주변정보",
+    source:
+      "https://place.udanax.org/place.php?id=948931&placeName=%EC%8F%98%EC%9D%B4%EC%82%B4%EB%A1%B1",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "iseo-hair",
+    slug: "iseo-hair",
+    name: "이서헤어",
+    area: "빛가람로권",
+    address: "전남 나주시 빛가람로 731 ks프라자 1층 이서헤어",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/place.php?id=948968&placeName=%ED%95%B8%EC%8D%B8%EB%A7%A8%EC%A6%88",
+    summary: "빛가람로권에서 주변 목록으로 확인되는 살롱이다.",
+    recommendedFor: "빛가람로권 샵까지 범위를 넓히는 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["빛가람로권 비교군"],
+    tags: [],
+    sourceLabel: "업체창고 주변정보",
+    source:
+      "https://place.udanax.org/place.php?id=948968&placeName=%ED%95%B8%EC%8D%B8%EB%A7%A8%EC%A6%88",
+    lastCheckedAt: "2026-04-22"
+  },
+  {
+    id: "shop-odd-eye",
+    slug: "shop-odd-eye",
+    name: "샵오드아이",
+    area: "배멧1길권",
+    address: "전남 나주시 배멧1길 46 402호(빛가람동)",
+    hours: "운영시간 확인 필요",
+    phone: "공개 전화번호 확인 필요",
+    parking: "확인 필요",
+    reservation: "공개 예약 링크 확인 필요",
+    reservationUrl:
+      "https://place.udanax.org/place.php?id=948968&placeName=%ED%95%B8%EC%8D%B8%EB%A7%A8%EC%A6%88",
+    summary: "배멧1길권 후보를 넓힐 때 주변 목록으로 확인되는 살롱이다.",
+    recommendedFor: "배멧권 미용실까지 같이 비교하고 싶은 경우",
+    priceSummary: "공개 가격 확인 필요",
+    specialties: ["배멧권 비교군"],
+    tags: [],
+    sourceLabel: "업체창고 주변정보",
+    source:
+      "https://place.udanax.org/place.php?id=948968&placeName=%ED%95%B8%EC%8D%B8%EB%A7%A8%EC%A6%88",
+    lastCheckedAt: "2026-04-22"
   }
 ];
