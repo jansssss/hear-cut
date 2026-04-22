@@ -9,7 +9,7 @@ type SalonDirectoryProps = {
   salons: Salon[];
 };
 
-type SortKey = "추천순" | "이름순" | "예약우선" | "주차우선";
+type SortKey = "추천순" | "이름순" | "가격순" | "예약우선" | "주차우선" | "좋아요순";
 
 const knownReservation = (reservation: string) =>
   !reservation.includes("확인 필요") && !reservation.includes("공개");
@@ -18,6 +18,11 @@ const knownParking = (parking: string) => parking.includes("가능");
 
 const knownPrice = (price: string) =>
   !price.includes("확인 필요") && !price.includes("추후");
+
+const getPriceFloor = (price: string) => {
+  const match = price.replace(/,/g, "").match(/(\d{4,})원/);
+  return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
+};
 
 const scoreSalon = (salon: Salon) => {
   let score = 0;
@@ -87,6 +92,14 @@ export default function SalonDirectory({
         return Number(knownParking(right.parking)) - Number(knownParking(left.parking));
       }
 
+      if (sortKey === "가격순") {
+        return getPriceFloor(left.priceSummary) - getPriceFloor(right.priceSummary);
+      }
+
+      if (sortKey === "좋아요순") {
+        return (right.favoriteCount ?? 0) - (left.favoriteCount ?? 0);
+      }
+
       return scoreSalon(right) - scoreSalon(left);
     });
   }, [normalizedQuery, salons, selectedArea, selectedTags, sortKey]);
@@ -154,8 +167,10 @@ export default function SalonDirectory({
               >
                 <option value="추천순">추천순</option>
                 <option value="이름순">이름순</option>
+                <option value="가격순">가격순</option>
                 <option value="예약우선">예약 확인 우선</option>
                 <option value="주차우선">주차 가능 우선</option>
+                <option value="좋아요순">좋아요순</option>
               </select>
             </div>
           </div>
@@ -288,7 +303,17 @@ export default function SalonDirectory({
                   </div>
 
                   <div className="card-footer">
-                    <span className="source-badge">{salon.sourceLabel}</span>
+                    <div className="card-meta-row">
+                      <span className="source-badge">{salon.sourceLabel}</span>
+                      <button
+                        className="like-button"
+                        title="좋아요 기능은 Supabase 연동 후 지원"
+                        type="button"
+                      >
+                        <span>♡</span>
+                        <span>{salon.favoriteCount ?? 0}</span>
+                      </button>
+                    </div>
                     <div className="actions">
                       <Link className="button button-secondary" href={`/salons/${salon.slug}`}>
                         자세히 보기

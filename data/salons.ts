@@ -29,6 +29,7 @@ export type Salon = {
   specialties: string[];
   tags: SalonTag[];
   instagramUrl?: string;
+  favoriteCount?: number;
   sourceLabel: string;
   source: string;
   lastCheckedAt: string;
