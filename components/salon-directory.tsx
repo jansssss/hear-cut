@@ -67,14 +67,9 @@ const scoreSalon = (salon: Salon) => {
 };
 
 const tagColorMap: Partial<Record<SalonTag, "primary" | "secondary" | "success" | "warning">> = {
-  남성커트: "primary",
-  여성커트: "primary",
-  펌: "secondary",
-  염색: "secondary",
-  두피관리: "success",
   주차: "warning",
   네이버예약: "success",
-  "1인샵": "warning"
+  "1인샵": "secondary"
 };
 
 export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryProps) {
@@ -218,6 +213,7 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                         onClick={() => toggleTag(tag)}
                         color={active ? tagColorMap[tag] ?? "primary" : "default"}
                         variant={active ? "filled" : "outlined"}
+                        sx={!active ? { bgcolor: "rgba(255,255,255,0.68)" } : undefined}
                       />
                     );
                   })}
@@ -274,7 +270,7 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
               }}
             >
               <Stack direction="row" spacing={1} alignItems="center">
-                <Avatar sx={{ bgcolor: alpha("#14766b", 0.12), color: "primary.main" }}>
+                <Avatar sx={{ bgcolor: alpha("#2c6c66", 0.1), color: "primary.main", width: 38, height: 38 }}>
                   <LocalOfferRounded />
                 </Avatar>
                 <Box>
@@ -282,7 +278,7 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                     한눈에 비교
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    카드와 배지만 보고 후보를 바로 줄이도록 구성
+                    배지와 핵심 칩만 먼저 보이게 정리
                   </Typography>
                 </Box>
               </Stack>
@@ -325,7 +321,12 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                             <Chip
                               size="small"
                               label={`점수 ${scoreSalon(salon)}`}
-                              color="secondary"
+                              variant="outlined"
+                              sx={{
+                                bgcolor: "rgba(182,122,97,0.12)",
+                                borderColor: "rgba(182,122,97,0.18)",
+                                color: "secondary.dark"
+                              }}
                             />
                           </Stack>
                         <Typography variant="h5">{salon.name}</Typography>
@@ -363,8 +364,12 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                             key={tag}
                             size="small"
                             label={tagLabels[tag]}
-                            color={tagColorMap[tag] ?? "primary"}
-                            variant={tagColorMap[tag] ? "filled" : "outlined"}
+                            color={tagColorMap[tag] ?? "default"}
+                            variant="outlined"
+                            sx={{
+                              bgcolor: "rgba(255,255,255,0.72)",
+                              borderColor: "rgba(28,36,33,0.09)"
+                            }}
                           />
                         ))}
                       </Box>
@@ -374,33 +379,43 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                           icon={<FlashOnRounded />}
                           label={salon.priceSummary}
                           variant="outlined"
-                          sx={{ maxWidth: "100%" }}
+                          sx={{ maxWidth: "100%", bgcolor: "rgba(255,255,255,0.72)" }}
                         />
                         <Chip
                           icon={<CalendarMonthRounded />}
                           label={salon.reservation}
                           variant="outlined"
-                          sx={{ maxWidth: "100%" }}
+                          sx={{ maxWidth: "100%", bgcolor: "rgba(255,255,255,0.72)" }}
                         />
                         <Chip
                           icon={<DirectionsCarRounded />}
                           label={salon.parking}
                           variant="outlined"
                           color={knownParking(salon.parking) ? "warning" : "default"}
-                          sx={{ maxWidth: "100%" }}
+                          sx={{ maxWidth: "100%", bgcolor: "rgba(255,255,255,0.72)" }}
                         />
                         <Chip
                           icon={<SpaRounded />}
                           label={salon.specialties[0] ?? "강점 확인"}
                           variant="outlined"
-                          sx={{ maxWidth: "100%" }}
+                          sx={{ maxWidth: "100%", bgcolor: "rgba(255,255,255,0.72)" }}
                         />
                       </Box>
 
                       <Stack spacing={1.25}>
                         <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                          <Chip size="small" label={salon.sourceLabel} variant="outlined" />
-                          <Chip size="small" label={`확인 ${salon.lastCheckedAt}`} variant="outlined" />
+                          <Chip
+                            size="small"
+                            label={salon.sourceLabel}
+                            variant="outlined"
+                            sx={{ bgcolor: "rgba(255,255,255,0.72)" }}
+                          />
+                          <Chip
+                            size="small"
+                            label={`확인 ${salon.lastCheckedAt}`}
+                            variant="outlined"
+                            sx={{ bgcolor: "rgba(255,255,255,0.72)" }}
+                          />
                         </Stack>
                         <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25}>
                           <Button component={Link} href={`/salons/${salon.slug}`} fullWidth variant="outlined">

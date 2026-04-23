@@ -8,9 +8,12 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(240, 142, 90, 0.12), transparent 24%),
-    radial-gradient(circle at top right, rgba(20, 118, 107, 0.14), transparent 28%),
-    linear-gradient(180deg, #fbf7f2 0%, #f4efe7 100%);
+    radial-gradient(circle at top left, rgba(182, 122, 97, 0.08), transparent 22%),
+    radial-gradient(circle at top right, rgba(44, 108, 102, 0.08), transparent 26%),
+    linear-gradient(180deg, #faf7f2 0%, #f3eee7 100%);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .shell {
@@ -22,9 +25,9 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  backdrop-filter: blur(18px);
-  background: rgba(251, 247, 242, 0.78);
-  border-bottom: 1px solid rgba(22, 33, 27, 0.08);
+  backdrop-filter: blur(16px);
+  background: rgba(250, 247, 242, 0.84);
+  border-bottom: 1px solid rgba(28, 36, 33, 0.06);
 }
 
 .header-inner {
@@ -49,11 +52,11 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #f08e5a 0%, #14766b 100%);
+  background: linear-gradient(135deg, #c69279 0%, #7f9f98 100%);
   color: white;
   font-family: var(--font-display), "Noto Sans KR", sans-serif;
   font-weight: 700;
-  box-shadow: 0 14px 30px rgba(20, 118, 107, 0.22);
+  box-shadow: 0 10px 22px rgba(44, 108, 102, 0.12);
 }
 
 .brand-meta {
@@ -68,7 +71,7 @@ body {
 }
 
 .brand-subtitle {
-  color: rgba(22, 33, 27, 0.62);
+  color: rgba(28, 36, 33, 0.56);
   font-size: 0.82rem;
   font-weight: 600;
 }
@@ -80,12 +83,12 @@ body {
   min-height: 42px;
   padding: 0 16px;
   border-radius: 999px;
-  background: rgba(15, 44, 47, 0.96);
+  background: rgba(31, 42, 39, 0.94);
   color: white;
   text-decoration: none;
   font-family: var(--font-display), "Noto Sans KR", sans-serif;
   font-weight: 700;
-  box-shadow: 0 12px 24px rgba(15, 44, 47, 0.12);
+  box-shadow: 0 8px 18px rgba(31, 42, 39, 0.08);
 }
 
 .map-shell {
@@ -93,8 +96,8 @@ body {
   min-height: 280px;
   border-radius: 24px;
   overflow: hidden;
-  border: 1px solid rgba(23, 23, 23, 0.08);
-  background: linear-gradient(180deg, #f3f7f7 0%, #edf4f4 100%);
+  border: 1px solid rgba(28, 36, 33, 0.06);
+  background: linear-gradient(180deg, #f4f6f5 0%, #edf1ef 100%);
 }
 
 .map-canvas-wrap {
@@ -130,7 +133,7 @@ body {
   justify-items: start;
   gap: 8px;
   padding: 22px;
-  background: linear-gradient(180deg, rgba(243, 247, 247, 0.94), rgba(237, 244, 244, 0.94));
+  background: linear-gradient(180deg, rgba(244, 246, 245, 0.95), rgba(237, 241, 239, 0.95));
 }
 
 .map-loading strong {
@@ -150,8 +153,8 @@ body {
   justify-content: space-between;
   gap: 10px;
   padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.92);
-  border-top: 1px solid rgba(23, 23, 23, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid rgba(28, 36, 33, 0.06);
 }
 
 .map-status span {
@@ -161,7 +164,7 @@ body {
 }
 
 .map-status a {
-  color: #0d524a;
+  color: #2c6c66;
   font-weight: 800;
   text-decoration: none;
 }
@@ -172,7 +175,7 @@ body {
   justify-items: start;
   gap: 16px;
   padding: 22px;
-  background: linear-gradient(180deg, rgba(243, 247, 247, 0.96), rgba(237, 244, 244, 0.96));
+  background: linear-gradient(180deg, rgba(244, 246, 245, 0.96), rgba(237, 241, 239, 0.96));
 }
 
 .map-fallback-copy {
