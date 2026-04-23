@@ -1,6 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import ArrowOutwardRounded from "@mui/icons-material/ArrowOutwardRounded";
+import CalendarMonthRounded from "@mui/icons-material/CalendarMonthRounded";
+import DirectionsCarRounded from "@mui/icons-material/DirectionsCarRounded";
+import FavoriteBorderRounded from "@mui/icons-material/FavoriteBorderRounded";
+import LocalOfferRounded from "@mui/icons-material/LocalOfferRounded";
+import LocationOnRounded from "@mui/icons-material/LocationOnRounded";
+import SortRounded from "@mui/icons-material/SortRounded";
+import SpaRounded from "@mui/icons-material/SpaRounded";
+import StarRounded from "@mui/icons-material/StarRounded";
+import {
+  alpha,
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  IconButton,
+  Paper,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip,
+  Typography
+} from "@mui/material";
+import Stack from "@/components/ui-stack";
 import { useMemo, useState } from "react";
 import { tagLabels, type Salon, type SalonTag } from "@/data/salons";
 
@@ -18,8 +44,7 @@ const knownReservation = (reservation: string) =>
 
 const knownParking = (parking: string) => parking.includes("가능");
 
-const knownPrice = (price: string) =>
-  !price.includes("확인 필요") && !price.includes("추후");
+const knownPrice = (price: string) => !price.includes("확인 필요") && !price.includes("추후");
 
 const getPriceFloor = (price: string) => {
   const match = price.replace(/,/g, "").match(/(\d{4,})원/);
@@ -41,10 +66,61 @@ const scoreSalon = (salon: Salon) => {
   return score;
 };
 
-export default function SalonDirectory({
-  featuredTags,
-  salons
-}: SalonDirectoryProps) {
+const tagColorMap: Partial<Record<SalonTag, "primary" | "secondary" | "success" | "warning">> = {
+  남성커트: "primary",
+  여성커트: "primary",
+  펌: "secondary",
+  염색: "secondary",
+  두피관리: "success",
+  주차: "warning",
+  네이버예약: "success",
+  "1인샵": "warning"
+};
+
+function MetricCard({
+  icon,
+  label,
+  value,
+  accent
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  accent?: boolean;
+}) {
+  return (
+    <Paper
+      sx={{
+        p: 2,
+        borderRadius: 4,
+        background: accent
+          ? "linear-gradient(145deg, rgba(240,142,90,0.18), rgba(20,118,107,0.08))"
+          : "rgba(255,255,255,0.64)"
+      }}
+    >
+      <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 1 }}>
+        <Avatar
+          sx={{
+            width: 34,
+            height: 34,
+            bgcolor: accent ? "secondary.main" : alpha("#14766b", 0.12),
+            color: accent ? "common.white" : "primary.main"
+          }}
+        >
+          {icon}
+        </Avatar>
+        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 700 }}>
+          {label}
+        </Typography>
+      </Stack>
+      <Typography variant="h4" sx={{ lineHeight: 1, mb: 0.5 }}>
+        {value}
+      </Typography>
+    </Paper>
+  );
+}
+
+export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryProps) {
   const [query, setQuery] = useState("");
   const [selectedArea, setSelectedArea] = useState("전체");
   const [selectedTags, setSelectedTags] = useState<SalonTag[]>([]);
@@ -62,7 +138,7 @@ export default function SalonDirectory({
       total: salons.length,
       reservationReady: salons.filter((salon) => knownReservation(salon.reservation)).length,
       parkingReady: salons.filter((salon) => knownParking(salon.parking)).length,
-      privateShops: salons.filter((salon) => salon.tags.includes("1인샵")).length
+      premiumReady: salons.filter((salon) => scoreSalon(salon) >= 8).length
     }),
     [salons]
   );
@@ -85,47 +161,28 @@ export default function SalonDirectory({
         .join(" ")
         .toLowerCase();
 
-      const matchesQuery =
-        normalizedQuery.length === 0 || searchableText.includes(normalizedQuery);
-
+      const matchesQuery = normalizedQuery.length === 0 || searchableText.includes(normalizedQuery);
       return matchesArea && matchesTags && matchesQuery;
     });
 
     return matched.sort((left, right) => {
-      if (sortKey === "이름순") {
-        return left.name.localeCompare(right.name, "ko");
-      }
-
-      if (sortKey === "예약우선") {
+      if (sortKey === "이름순") return left.name.localeCompare(right.name, "ko");
+      if (sortKey === "예약우선")
         return Number(knownReservation(right.reservation)) - Number(knownReservation(left.reservation));
-      }
-
-      if (sortKey === "주차우선") {
+      if (sortKey === "주차우선")
         return Number(knownParking(right.parking)) - Number(knownParking(left.parking));
-      }
-
-      if (sortKey === "가격순") {
-        return getPriceFloor(left.priceSummary) - getPriceFloor(right.priceSummary);
-      }
-
-      if (sortKey === "좋아요순") {
-        return (right.favoriteCount ?? 0) - (left.favoriteCount ?? 0);
-      }
-
+      if (sortKey === "가격순") return getPriceFloor(left.priceSummary) - getPriceFloor(right.priceSummary);
+      if (sortKey === "좋아요순") return (right.favoriteCount ?? 0) - (left.favoriteCount ?? 0);
       return scoreSalon(right) - scoreSalon(left);
     });
   }, [normalizedQuery, salons, selectedArea, selectedTags, sortKey]);
 
   const activeFilterCount =
-    selectedTags.length +
-    (selectedArea === "전체" ? 0 : 1) +
-    (normalizedQuery.length > 0 ? 1 : 0);
+    selectedTags.length + (selectedArea === "전체" ? 0 : 1) + (normalizedQuery ? 1 : 0);
 
   const toggleTag = (tag: SalonTag) => {
     setSelectedTags((current) =>
-      current.includes(tag)
-        ? current.filter((entry) => entry !== tag)
-        : [...current, tag]
+      current.includes(tag) ? current.filter((entry) => entry !== tag) : [...current, tag]
     );
   };
 
@@ -137,245 +194,393 @@ export default function SalonDirectory({
   };
 
   return (
-    <section className="section directory-section">
-      <div className="shell directory-stage">
-        <section className="directory-hero-card">
-          <div className="hero-copy">
-            <span className="eyebrow eyebrow-light">빛가람동 살롱 디렉토리</span>
-            <h1>조건을 먼저 좁히고, 지도까지 보고, 바로 예약으로 넘긴다.</h1>
-            <p>
-              hear-cut은 로컬 미용실 정보를 단순 나열하지 않는다. 가격대, 예약 가능
-              여부, 주차, 추천 포인트를 먼저 스캔하고 갈 만한 샵만 빠르게 남기는
-              비교 허브를 목표로 한다.
-            </p>
-            <div className="hero-accent-list">
-              <span>멀티 조건 필터</span>
-              <span>카카오 지도 연결</span>
-              <span>예약 링크 바로 이동</span>
-            </div>
-          </div>
+    <Box component="section" sx={{ py: { xs: 2, md: 3 } }}>
+      <Box className="shell" sx={{ display: "grid", gap: 2.5, pb: 5 }}>
+        <Paper
+          sx={{
+            p: { xs: 2.25, md: 3.5 },
+            borderRadius: 5,
+            background:
+              "radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 24%), linear-gradient(145deg, #0f2c2f 0%, #165056 58%, #15766b 100%)",
+            color: "common.white",
+            overflow: "hidden"
+          }}
+        >
+          <Box
+            sx={{
+              display: "grid",
+              gap: 2,
+              gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 1.1fr) minmax(360px, 0.9fr)" }
+            }}
+          >
+            <Stack spacing={2}>
+              <Chip
+                label="빛가람동 헤어 비교"
+                size="small"
+                sx={{
+                  alignSelf: "flex-start",
+                  bgcolor: alpha("#ffffff", 0.12),
+                  color: "common.white",
+                  border: "1px solid rgba(255,255,255,0.16)"
+                }}
+              />
+              <Typography
+                variant="h1"
+                sx={{
+                  maxWidth: "10ch",
+                  fontSize: { xs: "2.8rem", md: "4.6rem" },
+                  lineHeight: 0.94
+                }}
+              >
+                글보다 배지와 카드로 빠르게 고른다.
+              </Typography>
+              <Typography sx={{ maxWidth: 560, color: alpha("#ffffff", 0.78), lineHeight: 1.75 }}>
+                미용실 찾기는 읽는 일이 아니라 고르는 일에 가깝다. 그래서 핵심 조건,
+                가격대, 예약 가능 여부를 배지와 카드 구조로 바로 보이게 재구성했다.
+              </Typography>
+              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                <Chip label="배지 중심 스캔" color="secondary" />
+                <Chip label="카카오 지도 연결" color="primary" />
+                <Chip label="예약 링크 이동" color="default" sx={{ bgcolor: alpha("#ffffff", 0.14), color: "common.white" }} />
+              </Stack>
+            </Stack>
 
-          <div className="hero-stat-grid">
-            <div className="hero-stat-card">
-              <span>수록 미용실</span>
-              <strong>{stats.total}</strong>
-              <p>빛가람동 기준 공개 소스 수집본</p>
-            </div>
-            <div className="hero-stat-card">
-              <span>예약 정보 확인</span>
-              <strong>{stats.reservationReady}</strong>
-              <p>전화, 플랫폼, 링크 기준 확인 샵</p>
-            </div>
-            <div className="hero-stat-card">
-              <span>주차 확인</span>
-              <strong>{stats.parkingReady}</strong>
-              <p>차량 방문 기준 우선 추린 샵</p>
-            </div>
-            <div className="hero-stat-card hero-stat-card-accent">
-              <span>1인샵 태그</span>
-              <strong>{stats.privateShops}</strong>
-              <p>프라이빗 선호 사용자용 큐레이션</p>
-            </div>
-          </div>
-        </section>
+            <Box
+              sx={{
+                display: "grid",
+                gap: 1.5,
+                gridTemplateColumns: { xs: "1fr 1fr", sm: "repeat(2, minmax(0, 1fr))" },
+                alignContent: "start"
+              }}
+            >
+              <MetricCard icon={<SpaRounded fontSize="small" />} label="수록 샵" value={`${stats.total}`} />
+              <MetricCard icon={<CalendarMonthRounded fontSize="small" />} label="예약 확인" value={`${stats.reservationReady}`} />
+              <MetricCard icon={<DirectionsCarRounded fontSize="small" />} label="주차 확인" value={`${stats.parkingReady}`} />
+              <MetricCard icon={<StarRounded fontSize="small" />} label="고점수 샵" value={`${stats.premiumReady}`} accent />
+            </Box>
+          </Box>
+        </Paper>
 
-        <div className="directory-workbench">
-          <aside className="filter-sidebar">
-            <div className="panel filter-panel sticky-panel">
-              <div className="field field-grow">
-                <label htmlFor="search">검색</label>
-                <input
-                  className="search"
-                  id="search"
-                  type="text"
-                  placeholder="상호명, 도로명, 특징, 태그 검색"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                />
-              </div>
+        <Box
+          sx={{
+            display: "grid",
+            gap: 2,
+            gridTemplateColumns: { xs: "1fr", xl: "320px minmax(0, 1fr)" },
+            alignItems: "start"
+          }}
+        >
+          <Paper
+            sx={{
+              p: 2,
+              borderRadius: 4,
+              position: { xl: "sticky" },
+              top: { xl: 92 }
+            }}
+          >
+            <Stack spacing={2}>
+              <TextField
+                fullWidth
+                placeholder="상호명, 도로명, 태그 검색"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
 
-              <div className="filter-block">
-                <div className="filter-block-head">
-                  <span className="filter-block-title">권역</span>
-                  {selectedArea !== "전체" ? (
-                    <button className="filter-inline-reset" onClick={() => setSelectedArea("전체")} type="button">
-                      전체로
-                    </button>
-                  ) : null}
-                </div>
-                <div className="chip-row chip-grid">
+              <Stack spacing={1}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
+                  권역
+                </Typography>
+                <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                   {areas.map((area) => (
-                    <button
+                    <Chip
                       key={area}
-                      className={`chip chip-button ${selectedArea === area ? "chip-active" : ""}`}
+                      label={area}
+                      clickable
+                      color={selectedArea === area ? "primary" : "default"}
+                      variant={selectedArea === area ? "filled" : "outlined"}
                       onClick={() => setSelectedArea(area)}
-                      type="button"
-                    >
-                      {area}
-                    </button>
+                    />
                   ))}
-                </div>
-              </div>
+                </Box>
+              </Stack>
 
-              <div className="filter-block">
-                <span className="filter-block-title">정렬</span>
-                <div className="chip-row chip-grid">
+              <Stack spacing={1}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
+                  정렬
+                </Typography>
+                <ToggleButtonGroup
+                  exclusive
+                  value={sortKey}
+                  onChange={(_, value: SortKey | null) => value && setSortKey(value)}
+                  sx={{ flexWrap: "wrap", gap: 1 }}
+                >
                   {sortOptions.map((option) => (
-                    <button
-                      key={option}
-                      className={`chip chip-button ${sortKey === option ? "chip-active" : ""}`}
-                      onClick={() => setSortKey(option)}
-                      type="button"
-                    >
+                    <ToggleButton key={option} value={option}>
                       {option}
-                    </button>
+                    </ToggleButton>
                   ))}
-                </div>
-              </div>
+                </ToggleButtonGroup>
+              </Stack>
 
-              <div className="filter-block">
-                <span className="filter-block-title">빠른 조건</span>
-                <div className="chip-row chip-grid">
+              <Stack spacing={1}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
+                  빠른 조건
+                </Typography>
+                <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                   {featuredTags.map((tag) => {
                     const active = selectedTags.includes(tag);
-
                     return (
-                      <button
-                        className={`chip chip-button ${active ? "chip-active" : ""}`}
+                      <Chip
                         key={tag}
+                        label={tagLabels[tag]}
+                        clickable
                         onClick={() => toggleTag(tag)}
-                        type="button"
-                      >
-                        {tagLabels[tag]}
-                      </button>
+                        color={active ? tagColorMap[tag] ?? "primary" : "default"}
+                        variant={active ? "filled" : "outlined"}
+                      />
                     );
                   })}
-                </div>
-              </div>
+                </Box>
+              </Stack>
 
-              <div className="filter-summary">
-                <div className="active-filters">
-                  <span className="source-badge">{filteredSalons.length}곳 표시 중</span>
-                  <span className="source-badge">활성 필터 {activeFilterCount}개</span>
+              <Paper
+                variant="outlined"
+                sx={{
+                  p: 1.5,
+                  borderRadius: 3,
+                  bgcolor: alpha("#14766b", 0.04),
+                  display: "grid",
+                  gap: 1.25
+                }}
+              >
+                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Chip size="small" label={`${filteredSalons.length}곳`} color="primary" />
+                  <Chip size="small" label={`필터 ${activeFilterCount}개`} variant="outlined" />
+                </Stack>
 
+                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                   {selectedArea !== "전체" ? (
-                    <button className="active-pill" onClick={() => setSelectedArea("전체")} type="button">
-                      권역: {selectedArea} ×
-                    </button>
+                    <Chip size="small" label={`권역 ${selectedArea}`} onDelete={() => setSelectedArea("전체")} />
                   ) : null}
-
                   {selectedTags.map((tag) => (
-                    <button className="active-pill" key={tag} onClick={() => toggleTag(tag)} type="button">
-                      {tagLabels[tag]} ×
-                    </button>
+                    <Chip
+                      key={tag}
+                      size="small"
+                      label={tagLabels[tag]}
+                      onDelete={() => toggleTag(tag)}
+                    />
                   ))}
+                  {normalizedQuery ? <Chip size="small" label={query} onDelete={() => setQuery("")} /> : null}
+                </Stack>
 
-                  {normalizedQuery ? (
-                    <button className="active-pill" onClick={() => setQuery("")} type="button">
-                      검색어: {query} ×
-                    </button>
-                  ) : null}
-                </div>
-
-                <button className="button button-secondary filter-reset" onClick={resetFilters} type="button">
+                <Button variant="outlined" color="inherit" startIcon={<SortRounded />} onClick={resetFilters}>
                   필터 초기화
-                </button>
-              </div>
-            </div>
-          </aside>
+                </Button>
+              </Paper>
+            </Stack>
+          </Paper>
 
-          <div className="results-stage">
-            <div className="results-meta results-meta-panel panel">
-              <span>{filteredSalons.length}곳 표시 중</span>
-              <span>공개 소스 기준 2026-04-22 정리</span>
-            </div>
+          <Stack spacing={2}>
+            <Paper
+              sx={{
+                p: 1.5,
+                borderRadius: 4,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 1.5,
+                flexWrap: "wrap"
+              }}
+            >
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Avatar sx={{ bgcolor: alpha("#14766b", 0.12), color: "primary.main" }}>
+                  <LocalOfferRounded />
+                </Avatar>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
+                    한눈에 비교
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    카드와 배지만 보고 후보를 바로 줄이도록 구성
+                  </Typography>
+                </Box>
+              </Stack>
+
+              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                <Chip label={`${filteredSalons.length}곳 표시`} color="primary" />
+                <Chip label="2026-04-22 기준" variant="outlined" />
+              </Stack>
+            </Paper>
 
             {filteredSalons.length === 0 ? (
-              <div className="empty">
-                결과가 없다. 상호명보다 권역 + 태그 조합으로 다시 좁혀보는 편이
-                더 빠르다.
-              </div>
+              <Paper sx={{ p: 3, borderRadius: 4 }}>
+                <Typography color="text.secondary">
+                  결과가 없다. 권역과 태그 조합을 바꾸거나 검색어를 줄이는 편이 빠르다.
+                </Typography>
+              </Paper>
             ) : (
-              <div className="results results-rich">
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: 2,
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    md: "repeat(2, minmax(0, 1fr))",
+                    xxl: "repeat(3, minmax(0, 1fr))"
+                  }
+                }}
+              >
                 {filteredSalons.map((salon) => (
-                  <article className="salon-card" key={salon.id}>
-                    <div className="salon-card-top">
-                      <div className="card-title-wrap">
-                        <div className="salon-card-topline">
-                          <span className="salon-area">{salon.area}</span>
-                          <span className="salon-score">큐레이션 {scoreSalon(salon)}</span>
-                        </div>
-                        <h3>{salon.name}</h3>
-                        <p className="summary clamp-2">{salon.summary}</p>
-                      </div>
+                  <Card key={salon.id} sx={{ height: "100%" }}>
+                    <CardContent sx={{ p: 2.25, display: "grid", gap: 2 }}>
+                      <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={1.5}>
+                        <Stack spacing={1} minWidth={0}>
+                          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                            <Chip
+                              size="small"
+                              label={salon.area}
+                              icon={<LocationOnRounded />}
+                              variant="outlined"
+                            />
+                            <Chip
+                              size="small"
+                              label={`점수 ${scoreSalon(salon)}`}
+                              color="secondary"
+                            />
+                          </Stack>
+                          <Typography variant="h5">{salon.name}</Typography>
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{
+                              display: "-webkit-box",
+                              overflow: "hidden",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical"
+                            }}
+                          >
+                            {salon.summary}
+                          </Typography>
+                        </Stack>
 
-                      <button className="like-button" aria-label="좋아요" title="좋아요" type="button">
-                        <span className="like-icon">♥</span>
-                      </button>
-                    </div>
+                        <Tooltip title="좋아요">
+                          <IconButton
+                            size="small"
+                            sx={{
+                              bgcolor: alpha("#ef4444", 0.08),
+                              color: "#d53f3f",
+                              border: "1px solid rgba(239,68,68,0.12)"
+                            }}
+                          >
+                            <FavoriteBorderRounded fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </Stack>
 
-                    <div className="pill-row">
-                      {salon.tags.length > 0 ? (
-                        salon.tags.slice(0, 5).map((tag) => (
-                          <span className="pill" key={tag}>
-                            {tagLabels[tag]}
-                          </span>
-                        ))
-                      ) : (
-                        <span className="pill pill-muted">기본 정보 수집</span>
-                      )}
-                    </div>
+                      <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                        {salon.tags.slice(0, 5).map((tag) => (
+                          <Chip
+                            key={tag}
+                            size="small"
+                            label={tagLabels[tag]}
+                            color={tagColorMap[tag] ?? "default"}
+                            variant="outlined"
+                          />
+                        ))}
+                      </Box>
 
-                    <div className="salon-card-spotlight">
-                      <span>추천 포인트</span>
-                      <strong className="clamp-2">{salon.recommendedFor}</strong>
-                    </div>
+                      <Paper
+                        variant="outlined"
+                        sx={{
+                          p: 1.5,
+                          borderRadius: 3,
+                          bgcolor: alpha("#14766b", 0.04),
+                          borderColor: alpha("#14766b", 0.12)
+                        }}
+                      >
+                        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
+                          <Avatar sx={{ width: 30, height: 30, bgcolor: alpha("#14766b", 0.12), color: "primary.main" }}>
+                            <StarRounded fontSize="small" />
+                          </Avatar>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
+                            추천 포인트
+                          </Typography>
+                        </Stack>
+                        <Typography variant="body2" sx={{ lineHeight: 1.65 }}>
+                          {salon.recommendedFor}
+                        </Typography>
+                      </Paper>
 
-                    <div className="salon-card-metrics">
-                      <div className="metric-tile">
-                        <span>가격대</span>
-                        <strong className="clamp-2">{salon.priceSummary}</strong>
-                      </div>
-                      <div className="metric-tile">
-                        <span>예약</span>
-                        <strong className="clamp-2">{salon.reservation}</strong>
-                      </div>
-                      <div className="metric-tile">
-                        <span>주차</span>
-                        <strong className="clamp-2">{salon.parking}</strong>
-                      </div>
-                      <div className="metric-tile">
-                        <span>대표 강점</span>
-                        <strong className="clamp-2">{salon.specialties.join(", ")}</strong>
-                      </div>
-                    </div>
+                      <Box
+                        sx={{
+                          display: "grid",
+                          gap: 1,
+                          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+                        }}
+                      >
+                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
+                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
+                            가격대
+                          </Typography>
+                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
+                            {salon.priceSummary}
+                          </Typography>
+                        </Paper>
+                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
+                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
+                            예약
+                          </Typography>
+                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
+                            {salon.reservation}
+                          </Typography>
+                        </Paper>
+                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
+                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
+                            주차
+                          </Typography>
+                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
+                            {salon.parking}
+                          </Typography>
+                        </Paper>
+                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
+                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
+                            강점
+                          </Typography>
+                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
+                            {salon.specialties.join(", ")}
+                          </Typography>
+                        </Paper>
+                      </Box>
 
-                    <div className="salon-card-footer">
-                      <div className="card-meta-row">
-                        <span className="source-badge">{salon.sourceLabel}</span>
-                        <span className="source-badge">최종 확인 {salon.lastCheckedAt}</span>
-                      </div>
-                      <div className="actions">
-                        <Link className="button button-secondary" href={`/salons/${salon.slug}`}>
-                          상세 보기
-                        </Link>
-                        <a
-                          className="button button-primary"
-                          href={salon.reservationUrl}
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          예약 이동
-                        </a>
-                      </div>
-                    </div>
-                  </article>
+                      <Stack spacing={1.25}>
+                        <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                          <Chip size="small" label={salon.sourceLabel} variant="outlined" />
+                          <Chip size="small" label={`확인 ${salon.lastCheckedAt}`} variant="outlined" />
+                        </Stack>
+                        <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25}>
+                          <Button component={Link} href={`/salons/${salon.slug}`} fullWidth variant="outlined">
+                            상세 보기
+                          </Button>
+                          <Button
+                            component="a"
+                            href={salon.reservationUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            fullWidth
+                            variant="contained"
+                            endIcon={<ArrowOutwardRounded />}
+                          >
+                            예약 이동
+                          </Button>
+                        </Stack>
+                      </Stack>
+                    </CardContent>
+                  </Card>
                 ))}
-              </div>
+              </Box>
             )}
-          </div>
-        </div>
-      </div>
-    </section>
+          </Stack>
+        </Box>
+      </Box>
+    </Box>
   );
 }

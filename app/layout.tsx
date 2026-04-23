@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_KR, Noto_Sans_KR } from "next/font/google";
 import Link from "next/link";
+import MuiProvider from "@/components/mui-provider";
 import "./globals.css";
 import "./experience.css";
 
@@ -30,25 +31,27 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${displayFont.variable} ${bodyFont.variable}`}>
-        <header className="site-header">
-          <div className="shell header-inner">
-            <Link className="brand" href="/">
-              <span className="brand-mark">HC</span>
-              <span className="brand-meta">
-                <span>hear-cut</span>
-                <span className="brand-subtitle">나주혁신도시 미용실 비교 가이드</span>
-              </span>
-            </Link>
-            <a
-              className="header-link"
-              href="mailto:hello@hear-cut.local"
-              aria-label="제보 메일 보내기"
-            >
-              제보·수정 요청
-            </a>
-          </div>
-        </header>
-        {children}
+        <MuiProvider>
+            <header className="site-header">
+              <div className="shell header-inner">
+                <Link className="brand" href="/">
+                  <span className="brand-mark">HC</span>
+                  <span className="brand-meta">
+                    <span>hear-cut</span>
+                    <span className="brand-subtitle">나주혁신도시 미용실 비교 가이드</span>
+                  </span>
+                </Link>
+                <a
+                  className="header-link"
+                  href="mailto:hello@hear-cut.local"
+                  aria-label="제보 메일 보내기"
+                >
+                  제보·수정 요청
+                </a>
+              </div>
+            </header>
+            {children}
+        </MuiProvider>
       </body>
     </html>
   );
