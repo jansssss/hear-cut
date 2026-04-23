@@ -5,8 +5,8 @@ import ArrowOutwardRounded from "@mui/icons-material/ArrowOutwardRounded";
 import CalendarMonthRounded from "@mui/icons-material/CalendarMonthRounded";
 import DirectionsCarRounded from "@mui/icons-material/DirectionsCarRounded";
 import FavoriteBorderRounded from "@mui/icons-material/FavoriteBorderRounded";
+import FlashOnRounded from "@mui/icons-material/FlashOnRounded";
 import LocalOfferRounded from "@mui/icons-material/LocalOfferRounded";
-import LocationOnRounded from "@mui/icons-material/LocationOnRounded";
 import SortRounded from "@mui/icons-material/SortRounded";
 import SpaRounded from "@mui/icons-material/SpaRounded";
 import StarRounded from "@mui/icons-material/StarRounded";
@@ -77,49 +77,6 @@ const tagColorMap: Partial<Record<SalonTag, "primary" | "secondary" | "success" 
   "1인샵": "warning"
 };
 
-function MetricCard({
-  icon,
-  label,
-  value,
-  accent
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  accent?: boolean;
-}) {
-  return (
-    <Paper
-      sx={{
-        p: 2,
-        borderRadius: 4,
-        background: accent
-          ? "linear-gradient(145deg, rgba(240,142,90,0.18), rgba(20,118,107,0.08))"
-          : "rgba(255,255,255,0.64)"
-      }}
-    >
-      <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 1 }}>
-        <Avatar
-          sx={{
-            width: 34,
-            height: 34,
-            bgcolor: accent ? "secondary.main" : alpha("#14766b", 0.12),
-            color: accent ? "common.white" : "primary.main"
-          }}
-        >
-          {icon}
-        </Avatar>
-        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 700 }}>
-          {label}
-        </Typography>
-      </Stack>
-      <Typography variant="h4" sx={{ lineHeight: 1, mb: 0.5 }}>
-        {value}
-      </Typography>
-    </Paper>
-  );
-}
-
 export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryProps) {
   const [query, setQuery] = useState("");
   const [selectedArea, setSelectedArea] = useState("전체");
@@ -132,16 +89,6 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
   );
 
   const normalizedQuery = query.trim().toLowerCase();
-
-  const stats = useMemo(
-    () => ({
-      total: salons.length,
-      reservationReady: salons.filter((salon) => knownReservation(salon.reservation)).length,
-      parkingReady: salons.filter((salon) => knownParking(salon.parking)).length,
-      premiumReady: salons.filter((salon) => scoreSalon(salon) >= 8).length
-    }),
-    [salons]
-  );
 
   const filteredSalons = useMemo(() => {
     const matched = salons.filter((salon) => {
@@ -196,71 +143,6 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
   return (
     <Box component="section" sx={{ py: { xs: 2, md: 3 } }}>
       <Box className="shell" sx={{ display: "grid", gap: 2.5, pb: 5 }}>
-        <Paper
-          sx={{
-            p: { xs: 2.25, md: 3.5 },
-            borderRadius: 5,
-            background:
-              "radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 24%), linear-gradient(145deg, #0f2c2f 0%, #165056 58%, #15766b 100%)",
-            color: "common.white",
-            overflow: "hidden"
-          }}
-        >
-          <Box
-            sx={{
-              display: "grid",
-              gap: 2,
-              gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 1.1fr) minmax(360px, 0.9fr)" }
-            }}
-          >
-            <Stack spacing={2}>
-              <Chip
-                label="빛가람동 헤어 비교"
-                size="small"
-                sx={{
-                  alignSelf: "flex-start",
-                  bgcolor: alpha("#ffffff", 0.12),
-                  color: "common.white",
-                  border: "1px solid rgba(255,255,255,0.16)"
-                }}
-              />
-              <Typography
-                variant="h1"
-                sx={{
-                  maxWidth: "10ch",
-                  fontSize: { xs: "2.8rem", md: "4.6rem" },
-                  lineHeight: 0.94
-                }}
-              >
-                글보다 배지와 카드로 빠르게 고른다.
-              </Typography>
-              <Typography sx={{ maxWidth: 560, color: alpha("#ffffff", 0.78), lineHeight: 1.75 }}>
-                미용실 찾기는 읽는 일이 아니라 고르는 일에 가깝다. 그래서 핵심 조건,
-                가격대, 예약 가능 여부를 배지와 카드 구조로 바로 보이게 재구성했다.
-              </Typography>
-              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                <Chip label="배지 중심 스캔" color="secondary" />
-                <Chip label="카카오 지도 연결" color="primary" />
-                <Chip label="예약 링크 이동" color="default" sx={{ bgcolor: alpha("#ffffff", 0.14), color: "common.white" }} />
-              </Stack>
-            </Stack>
-
-            <Box
-              sx={{
-                display: "grid",
-                gap: 1.5,
-                gridTemplateColumns: { xs: "1fr 1fr", sm: "repeat(2, minmax(0, 1fr))" },
-                alignContent: "start"
-              }}
-            >
-              <MetricCard icon={<SpaRounded fontSize="small" />} label="수록 샵" value={`${stats.total}`} />
-              <MetricCard icon={<CalendarMonthRounded fontSize="small" />} label="예약 확인" value={`${stats.reservationReady}`} />
-              <MetricCard icon={<DirectionsCarRounded fontSize="small" />} label="주차 확인" value={`${stats.parkingReady}`} />
-              <MetricCard icon={<StarRounded fontSize="small" />} label="고점수 샵" value={`${stats.premiumReady}`} accent />
-            </Box>
-          </Box>
-        </Paper>
-
         <Box
           sx={{
             display: "grid",
@@ -438,7 +320,6 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                             <Chip
                               size="small"
                               label={salon.area}
-                              icon={<LocationOnRounded />}
                               variant="outlined"
                             />
                             <Chip
@@ -447,19 +328,19 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                               color="secondary"
                             />
                           </Stack>
-                          <Typography variant="h5">{salon.name}</Typography>
-                          <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            sx={{
-                              display: "-webkit-box",
-                              overflow: "hidden",
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: "vertical"
-                            }}
-                          >
-                            {salon.summary}
-                          </Typography>
+                        <Typography variant="h5">{salon.name}</Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{
+                            display: "-webkit-box",
+                            overflow: "hidden",
+                            WebkitLineClamp: 1,
+                            WebkitBoxOrient: "vertical"
+                          }}
+                        >
+                          {salon.summary}
+                        </Typography>
                         </Stack>
 
                         <Tooltip title="좋아요">
@@ -482,73 +363,38 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                             key={tag}
                             size="small"
                             label={tagLabels[tag]}
-                            color={tagColorMap[tag] ?? "default"}
-                            variant="outlined"
+                            color={tagColorMap[tag] ?? "primary"}
+                            variant={tagColorMap[tag] ? "filled" : "outlined"}
                           />
                         ))}
                       </Box>
 
-                      <Paper
-                        variant="outlined"
-                        sx={{
-                          p: 1.5,
-                          borderRadius: 3,
-                          bgcolor: alpha("#14766b", 0.04),
-                          borderColor: alpha("#14766b", 0.12)
-                        }}
-                      >
-                        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                          <Avatar sx={{ width: 30, height: 30, bgcolor: alpha("#14766b", 0.12), color: "primary.main" }}>
-                            <StarRounded fontSize="small" />
-                          </Avatar>
-                          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
-                            추천 포인트
-                          </Typography>
-                        </Stack>
-                        <Typography variant="body2" sx={{ lineHeight: 1.65 }}>
-                          {salon.recommendedFor}
-                        </Typography>
-                      </Paper>
-
-                      <Box
-                        sx={{
-                          display: "grid",
-                          gap: 1,
-                          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-                        }}
-                      >
-                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
-                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
-                            가격대
-                          </Typography>
-                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
-                            {salon.priceSummary}
-                          </Typography>
-                        </Paper>
-                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
-                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
-                            예약
-                          </Typography>
-                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
-                            {salon.reservation}
-                          </Typography>
-                        </Paper>
-                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
-                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
-                            주차
-                          </Typography>
-                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
-                            {salon.parking}
-                          </Typography>
-                        </Paper>
-                        <Paper variant="outlined" sx={{ p: 1.25, borderRadius: 3 }}>
-                          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
-                            강점
-                          </Typography>
-                          <Typography variant="body2" sx={{ mt: 0.75, lineHeight: 1.55 }}>
-                            {salon.specialties.join(", ")}
-                          </Typography>
-                        </Paper>
+                      <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                        <Chip
+                          icon={<FlashOnRounded />}
+                          label={salon.priceSummary}
+                          variant="outlined"
+                          sx={{ maxWidth: "100%" }}
+                        />
+                        <Chip
+                          icon={<CalendarMonthRounded />}
+                          label={salon.reservation}
+                          variant="outlined"
+                          sx={{ maxWidth: "100%" }}
+                        />
+                        <Chip
+                          icon={<DirectionsCarRounded />}
+                          label={salon.parking}
+                          variant="outlined"
+                          color={knownParking(salon.parking) ? "warning" : "default"}
+                          sx={{ maxWidth: "100%" }}
+                        />
+                        <Chip
+                          icon={<SpaRounded />}
+                          label={salon.specialties[0] ?? "강점 확인"}
+                          variant="outlined"
+                          sx={{ maxWidth: "100%" }}
+                        />
                       </Box>
 
                       <Stack spacing={1.25}>
