@@ -16,11 +16,13 @@ import { tagLabels, type Salon } from "@/data/salons";
 function DetailMetric({
   icon,
   label,
-  value
+  value,
+  centerValue = false
 }: {
   icon: React.ReactNode;
   label: string;
   value: string;
+  centerValue?: boolean;
 }) {
   return (
     <Paper sx={{ p: 1.5, borderRadius: 3, bgcolor: "rgba(255,255,255,0.72)" }}>
@@ -32,7 +34,18 @@ function DetailMetric({
           {label}
         </Typography>
       </Stack>
-      <Typography variant="body1" sx={{ lineHeight: 1.55, fontWeight: 700 }}>
+      <Typography
+        variant="body1"
+        sx={{
+          lineHeight: 1.55,
+          fontWeight: 700,
+          textAlign: centerValue ? "center" : "left",
+          minHeight: centerValue ? 52 : "auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: centerValue ? "center" : "flex-start"
+        }}
+      >
         {value}
       </Typography>
     </Paper>
@@ -132,10 +145,10 @@ export default function SalonDetailView({ salon }: { salon: Salon }) {
                   gridTemplateColumns: { xs: "1fr", md: "repeat(2, minmax(0, 1fr))" }
                 }}
               >
-                <DetailMetric icon={<PlaceRounded fontSize="small" />} label="주소" value={salon.address} />
-                <DetailMetric icon={<ScheduleRounded fontSize="small" />} label="운영시간" value={salon.hours} />
-                <DetailMetric icon={<StorefrontRounded fontSize="small" />} label="전화" value={salon.phone} />
-                <DetailMetric icon={<SpaRounded fontSize="small" />} label="추천 대상" value={salon.recommendedFor} />
+                <DetailMetric icon={<PlaceRounded fontSize="small" />} label="주소" value={salon.address} centerValue />
+                <DetailMetric icon={<ScheduleRounded fontSize="small" />} label="운영시간" value={salon.hours} centerValue />
+                <DetailMetric icon={<StorefrontRounded fontSize="small" />} label="전화" value={salon.phone} centerValue />
+                <DetailMetric icon={<SpaRounded fontSize="small" />} label="추천 대상" value={salon.recommendedFor} centerValue />
               </Box>
             </Stack>
           </Paper>
