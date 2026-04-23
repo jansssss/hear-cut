@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
+import { IBM_Plex_Sans_KR, Noto_Sans_KR } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import "./experience.css";
+
+const displayFont = IBM_Plex_Sans_KR({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display"
+});
+
+const bodyFont = Noto_Sans_KR({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-body"
+});
 
 export const metadata: Metadata = {
   title: "hear-cut | 나주혁신도시 미용실 한눈에 비교",
@@ -15,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>
+      <body className={`${displayFont.variable} ${bodyFont.variable}`}>
         <header className="site-header">
           <div className="shell header-inner">
             <Link className="brand" href="/">
