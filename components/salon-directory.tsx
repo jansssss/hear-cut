@@ -182,17 +182,6 @@ export default function SalonDirectory({
         <div className="directory-workbench">
           <aside className="filter-sidebar">
             <div className="panel filter-panel sticky-panel">
-              <div className="filter-panel-head">
-                <div>
-                  <span className="eyebrow">필터 랩</span>
-                  <h2>원하는 조건만 남기기</h2>
-                </div>
-                <p>
-                  검색, 권역, 정렬, 태그를 겹쳐서 바로 추린다. 스크롤보다 먼저
-                  판단하게 만드는 쪽으로 UX를 재정리했다.
-                </p>
-              </div>
-
               <div className="field field-grow">
                 <label htmlFor="search">검색</label>
                 <input
@@ -296,19 +285,9 @@ export default function SalonDirectory({
           </aside>
 
           <div className="results-stage">
-            <div className="results-intro panel">
-              <div className="results-intro-copy">
-                <span className="eyebrow">비교 보드</span>
-                <h2>고르기 전, 먼저 후보를 2~3곳으로 줄인다.</h2>
-                <p>
-                  카드마다 가격대, 예약 방식, 주차, 대표 강점을 먼저 펼쳐서
-                  상세페이지에 들어가기 전에도 판단이 되도록 구성했다.
-                </p>
-              </div>
-              <div className="results-meta">
-                <span>{filteredSalons.length}곳 표시 중</span>
-                <span>공개 소스 기준 2026-04-22 정리</span>
-              </div>
+            <div className="results-meta results-meta-panel panel">
+              <span>{filteredSalons.length}곳 표시 중</span>
+              <span>공개 소스 기준 2026-04-22 정리</span>
             </div>
 
             {filteredSalons.length === 0 ? (
