@@ -4,42 +4,45 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#2563EB",
-      dark: "#1D4ED8",
-      light: "#93C5FD",
+      main: "#2C6C66",
+      dark: "#1E4E4A",
+      light: "#7FB8B3",
       contrastText: "#FFFFFF"
     },
     secondary: {
-      main: "#7C3AED",
-      dark: "#6D28D9",
-      light: "#C4B5FD"
+      main: "#B67A61",
+      dark: "#8B5642",
+      light: "#D4A897"
     },
     background: {
-      default: "#F8FAFC",
-      paper: "#FFFFFF"
+      default: "#FAF7F2",
+      paper: "#F5F0E8"
     },
     text: {
-      primary: "#0F172A",
-      secondary: "#64748B"
+      primary: "#1C2421",
+      secondary: "#5B6660"
     }
+  },
+  breakpoints: {
+    values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536, xxl: 1920 }
   },
   shape: {
     borderRadius: 4
   },
   typography: {
-    fontFamily: "var(--font-body), 'Noto Sans KR', sans-serif",
+    fontFamily: "var(--font-sans), 'Noto Sans KR', sans-serif",
     h1: {
-      fontFamily: "var(--font-display), 'Noto Sans KR', sans-serif",
+      fontFamily: "var(--font-sans), 'Noto Sans KR', sans-serif",
       fontWeight: 700,
       letterSpacing: "-0.045em"
     },
     h2: {
-      fontFamily: "var(--font-display), 'Noto Sans KR', sans-serif",
+      fontFamily: "var(--font-sans), 'Noto Sans KR', sans-serif",
       fontWeight: 700,
       letterSpacing: "-0.03em"
     },
     h3: {
-      fontFamily: "var(--font-display), 'Noto Sans KR', sans-serif",
+      fontFamily: "var(--font-sans), 'Noto Sans KR', sans-serif",
       fontWeight: 700,
       letterSpacing: "-0.02em"
     },
@@ -47,7 +50,7 @@ const theme = createTheme({
       letterSpacing: "-0.01em"
     },
     button: {
-      fontFamily: "var(--font-display), 'Noto Sans KR', sans-serif",
+      fontFamily: "var(--font-sans), 'Noto Sans KR', sans-serif",
       textTransform: "none",
       fontWeight: 700,
       letterSpacing: "-0.01em"
@@ -83,9 +86,9 @@ const theme = createTheme({
           minHeight: 40
         },
         containedPrimary: {
-          background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+          background: "linear-gradient(135deg, #2C6C66 0%, #1E4E4A 100%)",
           color: "#FFFFFF",
-          boxShadow: "0 2px 10px rgba(37, 99, 235, 0.28)",
+          boxShadow: "0 2px 10px rgba(44, 108, 102, 0.28)",
           "& .MuiButton-endIcon": { color: "#FFFFFF" },
           "& .MuiButton-startIcon": { color: "#FFFFFF" },
         }
@@ -102,7 +105,7 @@ const theme = createTheme({
         {
           props: { color: "primary", variant: "filled" },
           style: {
-            background: "#2563EB"
+            background: "#2C6C66"
           }
         }
       ]
@@ -116,9 +119,9 @@ const theme = createTheme({
           fontWeight: 600,
           backgroundColor: "#FFFFFF",
           "&.Mui-selected": {
-            backgroundColor: alpha("#2563EB", 0.08),
-            color: "#1D4ED8",
-            borderColor: alpha("#2563EB", 0.28)
+            backgroundColor: alpha("#2C6C66", 0.08),
+            color: "#1E4E4A",
+            borderColor: alpha("#2C6C66", 0.28)
           }
         }
       }

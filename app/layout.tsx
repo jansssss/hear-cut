@@ -3,18 +3,11 @@ import { Noto_Sans_KR } from "next/font/google";
 import Link from "next/link";
 import MuiProvider from "@/components/mui-provider";
 import "./globals.css";
-import "./experience.css";
 
-const displayFont = Noto_Sans_KR({
+const notoSans = Noto_Sans_KR({
   subsets: ["latin"],
-  weight: ["500", "700", "900"],
-  variable: "--font-display"
-});
-
-const bodyFont = Noto_Sans_KR({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-body"
+  weight: ["400", "500", "700", "900"],
+  variable: "--font-sans"
 });
 
 export const metadata: Metadata = {
@@ -30,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${displayFont.variable} ${bodyFont.variable}`}>
+      <body className={notoSans.variable}>
         <MuiProvider>
           <header className="site-header">
             <div className="shell header-inner">

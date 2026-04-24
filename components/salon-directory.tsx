@@ -4,10 +4,7 @@ import Link from "next/link";
 import ArrowOutwardRounded from "@mui/icons-material/ArrowOutwardRounded";
 import AttachMoneyRounded from "@mui/icons-material/AttachMoneyRounded";
 import EventAvailableRounded from "@mui/icons-material/EventAvailableRounded";
-import FavoriteBorderRounded from "@mui/icons-material/FavoriteBorderRounded";
-import FavoriteRounded from "@mui/icons-material/FavoriteRounded";
 import LocalParkingRounded from "@mui/icons-material/LocalParkingRounded";
-import ManRounded from "@mui/icons-material/ManRounded";
 import RestartAltRounded from "@mui/icons-material/RestartAltRounded";
 import SortByAlphaRounded from "@mui/icons-material/SortByAlphaRounded";
 import StarRounded from "@mui/icons-material/StarRounded";
@@ -19,12 +16,10 @@ import {
   Card,
   CardContent,
   Chip,
-  IconButton,
   Paper,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import Stack from "@/components/ui-stack";
@@ -131,41 +126,56 @@ function TagFilterButton({
   const style = tagStyleMap[tag];
   const Icon = style.icon;
   return (
-    <Tooltip title={tagLabels[tag]} placement="top" arrow>
-      <Box
-        component="button"
-        onClick={onToggle}
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0.25, flexShrink: 0 }}
+    >
+      <Tooltip title={tagLabels[tag]} placement="top" arrow>
+        <Box
+          component="button"
+          onClick={onToggle}
+          aria-label={tagLabels[tag]}
+          sx={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 36,
+            height: 36,
+            border: "1.5px solid",
+            borderColor: active ? style.color : "rgba(28,36,33,0.09)",
+            borderRadius: "50%",
+            bgcolor: active ? style.bg : "rgba(255,255,255,0.72)",
+            color: active ? style.color : "text.secondary",
+            cursor: "pointer",
+            transition: "all 0.14s",
+            outline: "none",
+            p: 0,
+            "&:hover": {
+              borderColor: style.color,
+              bgcolor: style.bg,
+              color: style.color,
+              transform: "scale(1.1)",
+            },
+            "&:focus-visible": {
+              outline: `2px solid ${style.color}`,
+              outlineOffset: 2,
+            },
+          }}
+        >
+          <Icon sx={{ fontSize: 18 }} />
+        </Box>
+      </Tooltip>
+      <Typography
         sx={{
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: 36,
-          height: 36,
-          border: "1.5px solid",
-          borderColor: active ? style.color : "rgba(28,36,33,0.09)",
-          borderRadius: "50%",
-          bgcolor: active ? style.bg : "rgba(255,255,255,0.72)",
-          color: active ? style.color : "text.secondary",
-          cursor: "pointer",
-          transition: "all 0.14s",
-          outline: "none",
-          p: 0,
-          flexShrink: 0,
-          "&:hover": {
-            borderColor: style.color,
-            bgcolor: style.bg,
-            color: style.color,
-            transform: "scale(1.1)",
-          },
-          "&:focus-visible": {
-            outline: `2px solid ${style.color}`,
-            outlineOffset: 2,
-          },
+          fontSize: "0.6rem",
+          fontWeight: 700,
+          color: active ? style.color : "text.disabled",
+          lineHeight: 1,
+          userSelect: "none",
         }}
       >
-        <Icon sx={{ fontSize: 18 }} />
-      </Box>
-    </Tooltip>
+        {tagLabels[tag].slice(0, 4)}
+      </Typography>
+    </Box>
   );
 }
 
@@ -226,12 +236,12 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
           sx={{
             display: "grid",
             gap: 2,
-            gridTemplateColumns: { xs: "1fr", xl: "290px minmax(0, 1fr)" },
+            gridTemplateColumns: { xs: "1fr", lg: "260px minmax(0, 1fr)" },
             alignItems: "start",
           }}
         >
           {/* ── Filter panel ── */}
-          <Paper sx={{ p: 2, borderRadius: 4, position: { xl: "sticky" }, top: { xl: 88 } }}>
+          <Paper sx={{ p: 2, borderRadius: 4, position: { lg: "sticky" }, top: { lg: 88 } }}>
             <Stack spacing={2}>
               <TextField
                 fullWidth
@@ -392,7 +402,7 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                   <Card key={salon.id} sx={{ height: "100%" }}>
                     <CardContent sx={{ p: 2, display: "grid", gap: 1.5, "&:last-child": { pb: 2 } }}>
 
-                      {/* 헤더: 권역 + 점수 + 좋아요 */}
+                      {/* 헤더: 권역 + 점수 */}
                       <Stack direction="row" alignItems="center" spacing={0.75}>
                         <Chip
                           size="small"
@@ -413,15 +423,6 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                             fontWeight: 800,
                           }}
                         />
-                        <Box sx={{ flex: 1 }} />
-                        <Tooltip title="좋아요">
-                          <IconButton
-                            size="small"
-                            sx={{ width: 26, height: 26, color: alpha("#ef4444", 0.6) }}
-                          >
-                            <FavoriteBorderRounded sx={{ fontSize: 15 }} />
-                          </IconButton>
-                        </Tooltip>
                       </Stack>
 
                       {/* 상호명 */}
@@ -443,24 +444,27 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                         <Box />
                       )}
 
-                      {/* 핵심 정보 배지 */}
+                      {/* 핵심 정보 배지 — 미확인 데이터는 숨김 */}
                       <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap" }}>
-                        <InfoBadge
-                          icon={<AttachMoneyRounded sx={{ fontSize: 13 }} />}
-                          label={salon.priceSummary}
-                          muted={!knownPrice(salon.priceSummary)}
-                        />
+                        {knownPrice(salon.priceSummary) && (
+                          <InfoBadge
+                            icon={<AttachMoneyRounded sx={{ fontSize: 13 }} />}
+                            label={salon.priceSummary}
+                          />
+                        )}
                         <InfoBadge
                           icon={<LocalParkingRounded sx={{ fontSize: 13 }} />}
-                          label={salon.parking}
+                          label={knownParking(salon.parking) ? salon.parking : "주차 미확인"}
                           active={knownParking(salon.parking)}
-                          activeColor="#F59E0B"
+                          activeColor={tagStyleMap["주차"].color}
+                          muted={!knownParking(salon.parking)}
                         />
                         <InfoBadge
                           icon={<EventAvailableRounded sx={{ fontSize: 13 }} />}
-                          label={salon.reservation}
+                          label={knownReservation(salon.reservation) ? salon.reservation : "예약 미확인"}
                           active={knownReservation(salon.reservation)}
-                          activeColor="#22C55E"
+                          activeColor={tagStyleMap["네이버예약"].color}
+                          muted={!knownReservation(salon.reservation)}
                         />
                       </Box>
 
@@ -485,7 +489,7 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                           variant="contained"
                           size="small"
                           endIcon={<ArrowOutwardRounded sx={{ fontSize: "12px !important", color: "#fff" }} />}
-                          sx={{ minHeight: 36, fontSize: "0.78rem", color: "#fff !important" }}
+                          sx={{ minHeight: 36, fontSize: "0.78rem" }}
                         >
                           예약
                         </Button>
