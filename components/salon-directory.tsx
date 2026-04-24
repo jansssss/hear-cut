@@ -486,6 +486,7 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                           rel="noreferrer"
                           fullWidth
                           variant="contained"
+                          color="secondary"
                           size="small"
                           endIcon={<ArrowOutwardRounded sx={{ fontSize: "12px !important", color: "#fff" }} />}
                           sx={{ minHeight: 36, fontSize: "0.78rem" }}

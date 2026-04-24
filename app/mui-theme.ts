@@ -10,23 +10,24 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#2C6C66",
-      dark: "#1E4E4A",
-      light: "#7FB8B3",
+      main: "#1C1C1E",
+      dark: "#000000",
+      light: "#3A3A3C",
       contrastText: "#FFFFFF"
     },
     secondary: {
-      main: "#B67A61",
-      dark: "#8B5642",
-      light: "#D4A897"
+      main: "#FF6B6B",
+      dark: "#E53E3E",
+      light: "#FFA0A0",
+      contrastText: "#FFFFFF"
     },
     background: {
-      default: "#FAF7F2",
-      paper: "#F5F0E8"
+      default: "#F7F7F7",
+      paper: "#FFFFFF"
     },
     text: {
-      primary: "#1C2421",
-      secondary: "#5B6660"
+      primary: "#1C1C1E",
+      secondary: "#6B6B6B"
     }
   },
   breakpoints: {
@@ -92,9 +93,9 @@ const theme = createTheme({
           minHeight: 40
         },
         containedPrimary: {
-          background: "linear-gradient(135deg, #2C6C66 0%, #1E4E4A 100%)",
+          background: "linear-gradient(135deg, #1C1C1E 0%, #000000 100%)",
           color: "#FFFFFF",
-          boxShadow: "0 2px 10px rgba(44, 108, 102, 0.28)",
+          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.28)",
           "& .MuiButton-endIcon": { color: "#FFFFFF" },
           "& .MuiButton-startIcon": { color: "#FFFFFF" },
         }
@@ -111,7 +112,7 @@ const theme = createTheme({
         {
           props: { color: "primary", variant: "filled" },
           style: {
-            background: "#2C6C66"
+            background: "#1C1C1E"
           }
         }
       ]
@@ -125,9 +126,9 @@ const theme = createTheme({
           fontWeight: 600,
           backgroundColor: "#FFFFFF",
           "&.Mui-selected": {
-            backgroundColor: alpha("#2C6C66", 0.08),
-            color: "#1E4E4A",
-            borderColor: alpha("#2C6C66", 0.28)
+            backgroundColor: alpha("#1C1C1E", 0.08),
+            color: "#1C1C1E",
+            borderColor: alpha("#1C1C1E", 0.28)
           }
         }
       }
