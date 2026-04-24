@@ -31,9 +31,9 @@ type SalonDirectoryProps = {
   salons: Salon[];
 };
 
-type SortKey = "추천순" | "이름순" | "가격순" | "예약우선" | "주차우선" | "좋아요순";
+type SortKey = "추천순" | "이름순" | "가격순" | "예약우선" | "주차우선";
 
-const sortOptions: SortKey[] = ["추천순", "가격순", "예약우선", "주차우선", "좋아요순", "이름순"];
+const sortOptions: SortKey[] = ["추천순", "가격순", "예약우선", "주차우선", "이름순"];
 
 const sortIconMap: Record<SortKey, React.ElementType> = {
   추천순: StarRounded,
@@ -41,7 +41,6 @@ const sortIconMap: Record<SortKey, React.ElementType> = {
   가격순: AttachMoneyRounded,
   예약우선: EventAvailableRounded,
   주차우선: LocalParkingRounded,
-  좋아요순: FavoriteRounded,
 };
 
 const knownReservation = (v: string) => !v.includes("확인 필요") && !v.includes("공개");
@@ -211,7 +210,6 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
       if (sortKey === "예약우선") return Number(knownReservation(b.reservation)) - Number(knownReservation(a.reservation));
       if (sortKey === "주차우선") return Number(knownParking(b.parking)) - Number(knownParking(a.parking));
       if (sortKey === "가격순") return getPriceFloor(a.priceSummary) - getPriceFloor(b.priceSummary);
-      if (sortKey === "좋아요순") return (b.favoriteCount ?? 0) - (a.favoriteCount ?? 0);
       return scoreSalon(b) - scoreSalon(a);
     });
   }, [normalizedQuery, salons, selectedArea, selectedTags, sortKey]);
