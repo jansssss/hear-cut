@@ -87,6 +87,7 @@ const theme = createTheme({
           props: { variant: "contained", color: "primary" },
           style: {
             background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+            color: "#FFFFFF",
             boxShadow: "0 2px 10px rgba(37, 99, 235, 0.28)"
           }
         }

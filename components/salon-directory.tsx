@@ -91,7 +91,7 @@ function InfoBadge({
         gap: 0.5,
         px: 1,
         py: 0.4,
-        borderRadius: 1.5,
+        borderRadius: "4px",
         bgcolor: active && activeColor ? alpha(activeColor, 0.08) : "#FFFFFF",
         border: "1px solid",
         borderColor: active && activeColor ? alpha(activeColor, 0.25) : "rgba(15,23,42,0.08)",
