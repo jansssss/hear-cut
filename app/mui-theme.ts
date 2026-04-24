@@ -76,11 +76,14 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: "10px",
-          boxShadow: "0 1px 6px rgba(15, 23, 42, 0.05)",
-          transition: "box-shadow 0.18s",
+          borderRadius: "12px",
+          border: "1px solid rgba(0,0,0,0.06)",
+          boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+          transition: "box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease",
           "&:hover": {
-            boxShadow: "0 6px 20px rgba(15, 23, 42, 0.1)"
+            boxShadow: "0 12px 32px rgba(0,0,0,0.12)",
+            transform: "translateY(-3px)",
+            borderColor: "rgba(255,107,107,0.3)",
           }
         }
       }

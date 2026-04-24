@@ -53,6 +53,16 @@ const getPriceFloor = (price: string) => {
   return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
 };
 
+const areaColorMap: Record<string, string> = {
+  "그린로권":   "#10B981",
+  "배멧3길권":  "#6366F1",
+  "우정로권":   "#F59E0B",
+  "상야4길권":  "#EC4899",
+  "빛가람로권": "#0EA5E9",
+  "중흥로권":   "#8B5CF6",
+  "에듀로권":   "#14B8A6",
+};
+
 const scoreSalon = (salon: Salon) => {
   let score = 0;
   if (knownReservation(salon.reservation)) score += 3;
@@ -231,6 +241,29 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
   return (
     <Box component="section" sx={{ py: { xs: 2, md: 3 } }}>
       <Box className="shell" sx={{ display: "grid", gap: 2.5, pb: 5 }}>
+
+        {/* ── Hero ── */}
+        <Box
+          className="panel panel-dark"
+          sx={{ borderRadius: 4, p: { xs: 2.5, md: 3 } }}
+        >
+          <Typography variant="h5" sx={{ color: "white", fontWeight: 800, mb: 1.5, letterSpacing: "-0.03em" }}>
+            나주혁신도시 미용실 비교 가이드
+          </Typography>
+          <Box className="hero-spotlight">
+            {[
+              { label: "전체 수록", value: `${salons.length}곳` },
+              { label: "네이버예약", value: `${salons.filter((s) => s.tags.includes("네이버예약")).length}곳` },
+              { label: "주차 가능", value: `${salons.filter((s) => s.tags.includes("주차")).length}곳` },
+            ].map((item) => (
+              <div key={item.label} className="spotlight-card">
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </Box>
+        </Box>
+
         <Box
           sx={{
             display: "grid",
@@ -240,7 +273,15 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
           }}
         >
           {/* ── Filter panel ── */}
-          <Paper sx={{ p: 2, borderRadius: 4, position: { lg: "sticky" }, top: { lg: 88 } }}>
+          <Paper sx={{
+            p: 2, borderRadius: 4,
+            position: { lg: "sticky" }, top: { lg: 88 },
+            background: "rgba(255,255,255,0.75)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.6)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+          }}>
             <Stack spacing={2}>
               <TextField
                 fullWidth
@@ -316,9 +357,9 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                 sx={{
                   p: 1.5,
                   borderRadius: 3,
-                  bgcolor: "rgba(37,99,235,0.04)",
+                  bgcolor: "rgba(28,28,30,0.04)",
                   border: "1px solid",
-                  borderColor: "rgba(37,99,235,0.1)",
+                  borderColor: "rgba(28,28,30,0.08)",
                   display: "grid",
                   gap: 1,
                 }}
@@ -398,7 +439,16 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                 }}
               >
                 {filteredSalons.map((salon) => (
-                  <Card key={salon.id} sx={{ height: "100%" }}>
+                  <Card key={salon.id} sx={{ height: "100%", overflow: "hidden" }}>
+                    {/* 데이터 풍부도 accent bar */}
+                    <Box sx={{
+                      height: 3,
+                      background: salon.tags.length >= 3
+                        ? "linear-gradient(90deg, #FF6B6B, #FF9A9A)"
+                        : salon.tags.length >= 1
+                        ? "linear-gradient(90deg, #F59E0B, #FCD34D)"
+                        : "rgba(0,0,0,0.06)",
+                    }} />
                     <CardContent sx={{ p: 2, display: "grid", gap: 1.5, "&:last-child": { pb: 2 } }}>
 
                       {/* 헤더: 권역 + 점수 */}
@@ -406,8 +456,11 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                         <Chip
                           size="small"
                           label={salon.area}
-                          variant="outlined"
-                          sx={{ fontSize: "0.67rem", height: 22, maxWidth: 120 }}
+                          sx={{
+                            fontSize: "0.67rem", height: 22, maxWidth: 120, border: "none", fontWeight: 800,
+                            bgcolor: alpha(areaColorMap[salon.area] ?? "#6B6B6B", 0.12),
+                            color: areaColorMap[salon.area] ?? "#6B6B6B",
+                          }}
                         />
                         <Chip
                           size="small"

@@ -26,7 +26,7 @@ function DetailMetric({
   return (
     <Paper sx={{ p: 1.5, borderRadius: 3, bgcolor: "rgba(255,255,255,0.72)" }}>
       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.75 }}>
-        <Avatar sx={{ width: 28, height: 28, bgcolor: "rgba(37,99,235,0.08)", color: "primary.main" }}>
+        <Avatar sx={{ width: 28, height: 28, bgcolor: "rgba(255,107,107,0.10)", color: "secondary.main" }}>
           {icon}
         </Avatar>
         <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, letterSpacing: "0.03em" }}>
@@ -111,8 +111,14 @@ export default function SalonDetailView({ salon }: { salon: Salon }) {
                   target="_blank"
                   rel="noreferrer"
                   variant="contained"
-                  endIcon={<ArrowOutwardRounded sx={{ color: "#fff" }} />}
-                  sx={{ color: "#fff !important" }}
+                  color="secondary"
+                  endIcon={<ArrowOutwardRounded />}
+                  sx={{
+                    background: "linear-gradient(135deg, #FF6B6B 0%, #E53E3E 100%)",
+                    boxShadow: "0 4px 14px rgba(255,107,107,0.4)",
+                    "&:hover": { boxShadow: "0 6px 20px rgba(255,107,107,0.5)", transform: "translateY(-1px)" },
+                    transition: "all 0.2s ease",
+                  }}
                 >
                   예약 링크
                 </Button>
@@ -174,8 +180,8 @@ export default function SalonDetailView({ salon }: { salon: Salon }) {
                 sx={{
                   p: 1.75,
                   borderRadius: 3,
-                  bgcolor: "rgba(37,99,235,0.04)",
-                  borderColor: "rgba(37,99,235,0.12)",
+                  bgcolor: "rgba(255,107,107,0.04)",
+                  borderColor: "rgba(255,107,107,0.15)",
                 }}
               >
                 <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
