@@ -1,5 +1,11 @@
 import { alpha, createTheme } from "@mui/material/styles";
 
+declare module "@mui/material/styles" {
+  interface BreakpointOverrides {
+    xxl: true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     mode: "light",
