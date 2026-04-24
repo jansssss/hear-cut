@@ -21,7 +21,7 @@ export const tagStyleMap: Record<SalonTag, { icon: React.ElementType; color: str
   펌:       { icon: AutoAwesomeRounded,       color: "#A855F7", bg: "rgba(168,85,247,0.1)"  },
   염색:     { icon: ColorLensRounded,         color: "#F97316", bg: "rgba(249,115,22,0.1)"  },
   클리닉:   { icon: HealthAndSafetyRounded,   color: "#0891B2", bg: "rgba(8,145,178,0.1)"   },
-  "1인샵":  { icon: PersonRounded,            color: "#0D9488", bg: "rgba(13,148,136,0.1)"  },
+  "1인샵":  { icon: PersonRounded,            color: "#0284C7", bg: "rgba(2,132,199,0.1)"   },
   주차:     { icon: LocalParkingRounded,      color: "#F59E0B", bg: "rgba(245,158,11,0.1)"  },
   네이버예약:{ icon: EventAvailableRounded,   color: "#22C55E", bg: "rgba(34,197,94,0.1)"   },
   퇴근후:   { icon: NightlightRounded,        color: "#64748B", bg: "rgba(100,116,139,0.1)" },

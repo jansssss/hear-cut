@@ -307,9 +307,9 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                 sx={{
                   p: 1.5,
                   borderRadius: 3,
-                  bgcolor: "rgba(13,148,136,0.04)",
+                  bgcolor: "rgba(37,99,235,0.04)",
                   border: "1px solid",
-                  borderColor: "rgba(13,148,136,0.12)",
+                  borderColor: "rgba(37,99,235,0.1)",
                   display: "grid",
                   gap: 1,
                 }}
