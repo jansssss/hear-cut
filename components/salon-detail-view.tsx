@@ -112,7 +112,7 @@ export default function SalonDetailView({ salon }: { salon: Salon }) {
                   rel="noreferrer"
                   variant="contained"
                   endIcon={<ArrowOutwardRounded sx={{ color: "#fff" }} />}
-                  sx={{ color: "#fff" }}
+                  sx={{ color: "#fff !important" }}
                 >
                   예약 링크
                 </Button>
