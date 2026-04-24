@@ -80,18 +80,15 @@ const theme = createTheme({
           borderRadius: "6px",
           paddingInline: 16,
           minHeight: 40
+        },
+        containedPrimary: {
+          background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+          color: "#FFFFFF",
+          boxShadow: "0 2px 10px rgba(37, 99, 235, 0.28)",
+          "& .MuiButton-endIcon": { color: "#FFFFFF" },
+          "& .MuiButton-startIcon": { color: "#FFFFFF" },
         }
-      },
-      variants: [
-        {
-          props: { variant: "contained", color: "primary" },
-          style: {
-            background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-            color: "#FFFFFF",
-            boxShadow: "0 2px 10px rgba(37, 99, 235, 0.28)"
-          }
-        }
-      ]
+      }
     },
     MuiChip: {
       styleOverrides: {
