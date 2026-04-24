@@ -1,19 +1,17 @@
 :root {
-  --bg: #FAF7F2;
-  --panel: #F5F0E8;
-  --panel-strong: #FFFCF7;
-  --text: #1C2421;
-  --muted: #5B6660;
-  --line: rgba(28, 36, 33, 0.07);
-  --accent: #2C6C66;
-  --accent-soft: rgba(44, 108, 102, 0.08);
-  --accent-strong: #1E4E4A;
-  --warm: #B67A61;
-  --warm-soft: rgba(182, 122, 97, 0.1);
-  --ink: #1C2421;
-  --ink-soft: #2D3B38;
-  --warning: #8B7340;
-  --shadow: 0 1px 8px rgba(28, 36, 33, 0.06);
+  --bg: #F7F7F7;
+  --panel: #FFFFFF;
+  --panel-strong: #FFFFFF;
+  --text: #1C1C1E;
+  --muted: #6B6B6B;
+  --line: rgba(0, 0, 0, 0.08);
+  --accent: #FF6B6B;
+  --accent-soft: rgba(255, 107, 107, 0.1);
+  --accent-strong: #E53E3E;
+  --ink: #1C1C1E;
+  --ink-soft: #3A3A3C;
+  --warning: #F59E0B;
+  --shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
   --radius-xl: 10px;
   --radius-lg: 8px;
   --radius-md: 4px;
@@ -30,10 +28,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at top left, rgba(182, 122, 97, 0.08), transparent 22%),
-    radial-gradient(circle at top right, rgba(44, 108, 102, 0.08), transparent 26%),
-    linear-gradient(180deg, #faf7f2 0%, #f3eee7 100%);
+  background: #F7F7F7;
   color: var(--text);
   font-family: var(--font-sans), "Noto Sans KR", sans-serif;
   text-rendering: optimizeLegibility;
@@ -62,8 +57,8 @@ select {
   top: 0;
   z-index: 20;
   backdrop-filter: blur(16px);
-  background: rgba(250, 247, 242, 0.84);
-  border-bottom: 1px solid rgba(28, 36, 33, 0.06);
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .header-inner {
@@ -88,11 +83,11 @@ select {
   width: 44px;
   height: 44px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #c69279 0%, #7f9f98 100%);
+  background: linear-gradient(135deg, #1C1C1E 0%, #3A3A3C 100%);
   color: white;
   font-family: var(--font-sans), "Noto Sans KR", sans-serif;
   font-weight: 700;
-  box-shadow: 0 10px 22px rgba(44, 108, 102, 0.12);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
 }
 
 .brand-meta {
@@ -107,7 +102,7 @@ select {
 }
 
 .brand-subtitle {
-  color: rgba(28, 36, 33, 0.56);
+  color: rgba(0, 0, 0, 0.45);
   font-size: 0.82rem;
   font-weight: 600;
 }
