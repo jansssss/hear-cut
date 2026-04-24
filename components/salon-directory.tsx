@@ -92,9 +92,9 @@ function InfoBadge({
         px: 1,
         py: 0.4,
         borderRadius: 1.5,
-        bgcolor: active && activeColor ? alpha(activeColor, 0.08) : "rgba(255,255,255,0.72)",
+        bgcolor: active && activeColor ? alpha(activeColor, 0.08) : "#FFFFFF",
         border: "1px solid",
-        borderColor: active && activeColor ? alpha(activeColor, 0.22) : "rgba(28,36,33,0.08)",
+        borderColor: active && activeColor ? alpha(activeColor, 0.25) : "rgba(15,23,42,0.08)",
         color: active && activeColor ? activeColor : muted ? "text.disabled" : "text.secondary",
         maxWidth: 160,
         minWidth: 0,
@@ -307,9 +307,9 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                 sx={{
                   p: 1.5,
                   borderRadius: 3,
-                  bgcolor: alpha("#14766b", 0.04),
+                  bgcolor: "rgba(13,148,136,0.04)",
                   border: "1px solid",
-                  borderColor: alpha("#14766b", 0.1),
+                  borderColor: "rgba(13,148,136,0.12)",
                   display: "grid",
                   gap: 1,
                 }}
@@ -407,7 +407,7 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                           sx={{
                             height: 22,
                             fontSize: "0.67rem",
-                            bgcolor: "rgba(182,122,97,0.12)",
+                            bgcolor: "rgba(245,158,11,0.1)",
                             border: "none",
                             color: "secondary.dark",
                             fontWeight: 800,
@@ -454,13 +454,13 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                           icon={<LocalParkingRounded sx={{ fontSize: 13 }} />}
                           label={salon.parking}
                           active={knownParking(salon.parking)}
-                          activeColor="#ef6c00"
+                          activeColor="#F59E0B"
                         />
                         <InfoBadge
                           icon={<EventAvailableRounded sx={{ fontSize: 13 }} />}
                           label={salon.reservation}
                           active={knownReservation(salon.reservation)}
-                          activeColor="#2e7d32"
+                          activeColor="#22C55E"
                         />
                       </Box>
 

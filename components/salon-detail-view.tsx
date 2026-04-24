@@ -26,7 +26,7 @@ function DetailMetric({
   return (
     <Paper sx={{ p: 1.5, borderRadius: 3, bgcolor: "rgba(255,255,255,0.72)" }}>
       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.75 }}>
-        <Avatar sx={{ width: 28, height: 28, bgcolor: "rgba(20,118,107,0.1)", color: "primary.main" }}>
+        <Avatar sx={{ width: 28, height: 28, bgcolor: "rgba(13,148,136,0.1)", color: "primary.main" }}>
           {icon}
         </Avatar>
         <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, letterSpacing: "0.03em" }}>
@@ -173,8 +173,8 @@ export default function SalonDetailView({ salon }: { salon: Salon }) {
                 sx={{
                   p: 1.75,
                   borderRadius: 3,
-                  bgcolor: "rgba(20,118,107,0.04)",
-                  borderColor: "rgba(20,118,107,0.13)",
+                  bgcolor: "rgba(13,148,136,0.04)",
+                  borderColor: "rgba(13,148,136,0.14)",
                 }}
               >
                 <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>

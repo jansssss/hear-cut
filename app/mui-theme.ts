@@ -4,22 +4,22 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#2c6c66",
-      dark: "#224f4b",
-      light: "#7f9f98"
+      main: "#0D9488",
+      dark: "#0F766E",
+      light: "#5EEAD4"
     },
     secondary: {
-      main: "#b67a61",
-      dark: "#8f5f4b",
-      light: "#d6ae9b"
+      main: "#F59E0B",
+      dark: "#D97706",
+      light: "#FCD34D"
     },
     background: {
-      default: "#f5f1eb",
-      paper: "#fffdf9"
+      default: "#F8FAFC",
+      paper: "#FFFFFF"
     },
     text: {
-      primary: "#1c2421",
-      secondary: "#6b746f"
+      primary: "#0F172A",
+      secondary: "#64748B"
     }
   },
   shape: {
@@ -57,8 +57,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: "none",
-          border: "1px solid rgba(28, 36, 33, 0.07)",
-          boxShadow: "0 12px 28px rgba(25, 34, 31, 0.05)"
+          border: "1px solid rgba(15, 23, 42, 0.06)",
+          boxShadow: "0 4px 16px rgba(15, 23, 42, 0.04)"
         }
       }
     },
@@ -66,7 +66,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 22,
-          boxShadow: "0 10px 24px rgba(25, 34, 31, 0.05)"
+          boxShadow: "0 2px 12px rgba(15, 23, 42, 0.05)",
+          "&:hover": {
+            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.1)"
+          }
         }
       }
     },
@@ -82,8 +85,8 @@ const theme = createTheme({
         {
           props: { variant: "contained", color: "primary" },
           style: {
-            background: "#2c6c66",
-            boxShadow: "0 10px 20px rgba(44, 108, 102, 0.16)"
+            background: "linear-gradient(135deg, #0D9488 0%, #0891B2 100%)",
+            boxShadow: "0 4px 14px rgba(13, 148, 136, 0.3)"
           }
         }
       ]
@@ -99,7 +102,7 @@ const theme = createTheme({
         {
           props: { color: "primary", variant: "filled" },
           style: {
-            background: "#2c6c66"
+            background: "#0D9488"
           }
         }
       ]
@@ -108,13 +111,14 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 14,
-          borderColor: alpha("#1c2421", 0.08),
+          borderColor: alpha("#0F172A", 0.07),
           paddingInline: 14,
           fontWeight: 600,
-          backgroundColor: alpha("#ffffff", 0.7),
+          backgroundColor: alpha("#ffffff", 0.8),
           "&.Mui-selected": {
-            backgroundColor: alpha("#2c6c66", 0.1),
-            color: "#224f4b"
+            backgroundColor: alpha("#0D9488", 0.1),
+            color: "#0F766E",
+            borderColor: alpha("#0D9488", 0.25)
           }
         }
       }
@@ -123,7 +127,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 18,
-          backgroundColor: alpha("#ffffff", 0.78)
+          backgroundColor: "#FFFFFF"
         }
       }
     }
