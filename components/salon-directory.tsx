@@ -484,8 +484,8 @@ export default function SalonDirectory({ featuredTags, salons }: SalonDirectoryP
                           fullWidth
                           variant="contained"
                           size="small"
-                          endIcon={<ArrowOutwardRounded sx={{ fontSize: "12px !important" }} />}
-                          sx={{ minHeight: 36, fontSize: "0.78rem" }}
+                          endIcon={<ArrowOutwardRounded sx={{ fontSize: "12px !important", color: "#fff" }} />}
+                          sx={{ minHeight: 36, fontSize: "0.78rem", color: "#fff" }}
                         >
                           예약
                         </Button>
