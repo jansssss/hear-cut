@@ -1,21 +1,24 @@
 :root {
-  --bg: #F7F7F7;
+  --bg: #FFFFFF;
   --panel: #FFFFFF;
   --panel-strong: #FFFFFF;
   --text: #1C1C1E;
-  --muted: #6B6B6B;
-  --line: rgba(0, 0, 0, 0.08);
+  --muted: #6B7280;
+  --line: #EBEBEB;
   --accent: #FF6B6B;
-  --accent-soft: rgba(255, 107, 107, 0.1);
+  --accent-soft: rgba(255, 107, 107, 0.10);
   --accent-strong: #E53E3E;
   --ink: #1C1C1E;
   --ink-soft: #3A3A3C;
   --warning: #F59E0B;
-  --shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
-  --radius-xl: 10px;
-  --radius-lg: 8px;
-  --radius-md: 4px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.07);
+  --radius-xl: 16px;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
   --max: 1360px;
+  --header-h: 52px;
 }
 
 * {
@@ -28,7 +31,7 @@ html {
 
 body {
   margin: 0;
-  background: #F7F7F7;
+  background: #FFFFFF;
   color: var(--text);
   font-family: var(--font-sans), "Noto Sans KR", sans-serif;
   text-rendering: optimizeLegibility;
@@ -52,6 +55,66 @@ select {
   margin: 0 auto;
 }
 
+/* ── Samsung Life style fixed header ── */
+.sl-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--header-h);
+  background: #FFFFFF;
+  border-bottom: 1px solid #EBEBEB;
+  display: grid;
+  grid-template-columns: 48px 1fr 80px;
+  align-items: center;
+  padding: 0 16px;
+  max-width: 100%;
+}
+
+.sl-header-home {
+  font-size: 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sl-header-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1C1C1E;
+  letter-spacing: -0.02em;
+}
+
+.sl-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sl-header-consult {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1.5px solid #1C1C1E;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1C1C1E;
+  text-decoration: none;
+  background: transparent;
+  white-space: nowrap;
+}
+
+.sl-header-menu {
+  font-size: 22px;
+  color: #1C1C1E;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Legacy header classes (used by salon detail view) */
 .site-header {
   position: sticky;
   top: 0;
@@ -59,6 +122,7 @@ select {
   backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  display: none;
 }
 
 .header-inner {

@@ -1,10 +1,5 @@
-import SalonDirectory from "@/components/salon-directory";
-import { featuredTags, salons } from "@/data/salons";
+import HearPage from "@/components/hear-page";
 
 export default function HomePage() {
-  return (
-    <main>
-      <SalonDirectory featuredTags={featuredTags} salons={salons} />
-    </main>
-  );
+  return <HearPage />;
 }

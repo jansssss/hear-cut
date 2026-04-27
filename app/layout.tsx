@@ -25,25 +25,28 @@ export default function RootLayout({
     <html lang="ko">
       <body className={notoSans.variable}>
         <MuiProvider>
-          <header className="site-header">
-            <div className="shell header-inner">
-              <Link className="brand" href="/">
-                <span className="brand-mark">HC</span>
-                <span className="brand-meta">
-                  <span>hear-cut</span>
-                  <span className="brand-subtitle">나주혁신도시 미용실 비교 가이드</span>
-                </span>
-              </Link>
+          {/* Samsung Life style fixed header */}
+          <header className="sl-header">
+            <Link href="/" className="sl-header-home" aria-label="홈">
+              🏠
+            </Link>
+            <span className="sl-header-title">hear-cut</span>
+            <div className="sl-header-actions">
               <a
-                className="header-link"
                 href="mailto:hello@hear-cut.local"
-                aria-label="제보 메일 보내기"
+                className="sl-header-consult"
+                aria-label="제보하기"
               >
-                제보·수정 요청
+                제보
               </a>
+              <span className="sl-header-menu" aria-hidden>≡</span>
             </div>
           </header>
-          {children}
+
+          {/* Page content — padded for fixed header */}
+          <div style={{ paddingTop: 52 }}>
+            {children}
+          </div>
         </MuiProvider>
       </body>
     </html>
