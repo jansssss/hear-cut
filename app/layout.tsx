@@ -27,26 +27,23 @@ export default function RootLayout({
         <MuiProvider>
           {/* Samsung Life style fixed header */}
           <header className="sl-header">
-            <Link href="/" className="sl-header-home" aria-label="홈">
+            <Link href="/" className="sl-header-home" aria-label="홈으로">
               🏠
             </Link>
-            <span className="sl-header-title">hear-cut</span>
+            <Link href="/" className="sl-header-title">
+              hear-cut
+            </Link>
             <div className="sl-header-actions">
               <a
                 href="mailto:hello@hear-cut.local"
                 className="sl-header-consult"
-                aria-label="제보하기"
               >
                 제보
               </a>
-              <span className="sl-header-menu" aria-hidden>≡</span>
             </div>
           </header>
 
-          {/* Page content — padded for fixed header */}
-          <div style={{ paddingTop: 52 }}>
-            {children}
-          </div>
+          <div className="sl-body">{children}</div>
         </MuiProvider>
       </body>
     </html>
